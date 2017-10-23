@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="snowleopard.speakup.MainActivity"
+    android:orientation="vertical"
+    android:background="@color/colorCards">
+
+
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to SpeakUp!"
+        android:textColor="@android:color/black"
+        android:textSize="32sp"
+        android:padding="16dp"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:paddingLeft="16dp"/>
+
+    <EditText
+        android:layout_width="318dp"
+        android:id="@+id/nameField"
+        android:layout_height="wrap_content"
+        android:hint="Your name here"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginLeft="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E-mail ID:"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:paddingLeft="16dp"/>
+
+    <EditText
+        android:layout_width="318dp"
+        android:layout_height="wrap_content"
+        android:hint="xyz@example.com"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/emailField"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password:"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:paddingLeft="16dp"/>
+
+    <EditText
+        android:layout_width="324dp"
+        android:layout_height="wrap_content"
+        android:hint="(Min. 6 characters)"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/passwordField"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:layout_weight="1"
+            android:id="@+id/registerBtn"
+            android:background="@color/colorCards"/>
+
+
+    </LinearLayout>
+</LinearLayout>

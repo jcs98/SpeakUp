@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="15dp"
+    android:orientation="vertical"
+    tools:context="snowleopard.speakup.ViewStoryActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="352dp"
+        android:layout_height="188dp"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="11dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="353dp"
+        android:layout_height="50dp"
+        android:textSize="25dp"
+        android:layout_marginTop="15dp"
+        android:text="Title"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="210dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="174dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="355dp"
+                android:layout_height="166dp"
+                android:scrollbarSize="9dp"
+                android:scrollbarStyle="insideInset"
+                android:text="Description"
+                tools:layout_editor_absoluteX="17dp"
+                tools:layout_editor_absoluteY="279dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp">
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="0.11"
+            android:background="@color/colorPrimary"
+            android:text="Report"
+            android:textAllCaps="true"
+            android:textColor="@color/colorG" />
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorG"
+            android:text="View location"
+            android:textAllCaps="true" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="88dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="Solved"
+            tools:layout_editor_absoluteX="288dp"
+            tools:layout_editor_absoluteY="456dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

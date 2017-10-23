@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "320572954241",
+    "firebase_url": "https://speakup-05.firebaseio.com",
+    "project_id": "speakup-05",
+    "storage_bucket": "speakup-05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320572954241:android:d287eee263d7f515",
+        "android_client_info": {
+          "package_name": "snowleopard.speakup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "320572954241-bp7eej7fgdi8975ne9kv3rs8k6r9ppoe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "snowleopard.speakup",
+            "certificate_hash": "4b6717583457d8892ad86877e783aa4a43c90b6a"
+          }
+        },
+        {
+          "client_id": "320572954241-fi6ptpnc29e5a5ve1nlk04941voktdfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1qigALpLMmiMDx_fN9zpUTCcXPKL4eE8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320572954241-fi6ptpnc29e5a5ve1nlk04941voktdfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

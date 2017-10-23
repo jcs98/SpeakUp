@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorCards"
+tools:context="snowleopard.speakup.ListViewActivity">
+
+    <ImageButton
+        android:id="@+id/btImg"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:cropToPadding="true"
+        android:scaleType="centerCrop"
+        app:srcCompat="@color/colorPrimaryDark"
+        android:background="@color/colorCards"/>
+
+
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Title"
+        android:inputType="textPersonName"
+        android:singleLine="true" />
+
+    <EditText
+        android:id="@+id/etDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Description / Solution"
+        android:inputType="textMultiLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorCards">
+
+
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:background="@color/colorCards">
+
+
+            <TextView
+                android:id="@+id/tv_lat"
+                android:layout_width="174dp"
+                android:layout_height="30dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Latitude"  />
+
+            <TextView
+                android:id="@+id/tv_lng"
+                android:layout_width="174dp"
+                android:layout_height="30dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Longitude" />
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btLoc"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Get location"
+            android:background="@color/colorCards"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btSub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT"
+        android:background="@color/colorCards"/>
+</LinearLayout>
