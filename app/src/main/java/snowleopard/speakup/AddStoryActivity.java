@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +41,11 @@ public class AddStoryActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabaseUser;
     private StorageReference mStorage;
+
+//    private TextView latTV;
+//    private TextView lngTV;
+
+
     public static final int GALLERY_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,13 @@ public class AddStoryActivity extends AppCompatActivity {
         mStorage  = FirebaseStorage.getInstance().getReference().child("Photos");
 
         mProgress = new ProgressDialog(this);
+
+        String lat = getIntent().getStringExtra("lat");
+        TextView latTv = (TextView) findViewById(R.id.tv_lat);
+        latTv.setText("Latitute: " + lat);
+        String lng = getIntent().getStringExtra("lng");
+        TextView lngTv = (TextView) findViewById(R.id.tv_lng);
+        lngTv.setText("Longitude: " + lng);
 
 
         mImg.setOnClickListener(new View.OnClickListener() {

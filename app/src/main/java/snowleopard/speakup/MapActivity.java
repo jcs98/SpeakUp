@@ -45,6 +45,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private Marker currentLocationMarker;
     private Marker searchLocationMarker;
     public static final int REQUEST_LOCATION_CODE = 99;
+    private Address myAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             }
 
             for(int i = 0; i<addressList.size(); i++){
-                Address myAddress = addressList.get(i);
+                myAddress = addressList.get(i);
                 LatLng latLng = new LatLng(myAddress.getLatitude(), myAddress.getLongitude());
                 mo.position(latLng);
                 mo.title(location);
@@ -88,31 +89,53 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
                 searchLocationMarker = mMap.addMarker(mo);
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+
+
+
+
             }
         }
 
     }
 
+    public void getInfoContents(View view){
 
+        String lat = Double.toString(myAddress.getLatitude());
+        String lng = Double.toString(myAddress.getLongitude());
 
-    public void getInfoContents(Marker searchLocationMarker ) {
+        Intent intent = new Intent(MapActivity.this, AddStoryActivity.class);
+        intent.putExtra("lat", lat);
+        intent.putExtra("lng", lng);
 
-        View v =getLayoutInflater().inflate(R.layout.activity_add_story, null);
+        startActivity(intent);
 
-        //TextView tvlocality = (TextView) v.findViewById(R.id.tv_locality);
-        TextView tvlat = (TextView) v.findViewById(R.id.tv_lat);
-        TextView tvlng = (TextView) v.findViewById(R.id.tv_lng);
-        //TextView tvsnippet = (TextView) v.findViewById(R.id.tv_snippet);
-
-        LatLng ll = searchLocationMarker.getPosition();
-        //tvlocality.setText(searchLocationMarker .getTitle());
-        tvlat.setText("Latitude: " + ll.latitude);
-        tvlng.setText("Longitude: " + ll.longitude);
-        //tvsnippet.setText(searchLocationMarker .getSnippet());
-
-
-   //     return v;
     }
+
+
+//    public void getInfoContents(Marker searchLocationMarker ) {
+//
+//        View v =getLayoutInflater().inflate(R.layout.activity_add_story, null);
+//
+//        //TextView tvlocality = (TextView) v.findViewById(R.id.tv_locality);
+//        TextView tvlat = (TextView) v.findViewById(R.id.tv_lat);
+//        TextView tvlng = (TextView) v.findViewById(R.id.tv_lng);
+//        //TextView tvsnippet = (TextView) v.findViewById(R.id.tv_snippet);
+//
+//        LatLng ll = searchLocationMarker.getPosition();
+//        //tvlocality.setText(searchLocationMarker .getTitle());
+//        tvlat.setText("Latitude: " + ll.latitude);
+//        tvlng.setText("Longitude: " + ll.longitude);
+//        //tvsnippet.setText(searchLocationMarker .getSnippet());
+//
+//
+//   //     return v;
+//    }
+
+
+
+
+
 //J pass lat lng
 //    public void passLocation(View view){
 //        EditText tf_location = (EditText)findViewById(R.id.TF_location);
@@ -241,7 +264,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         locationRequest.setInterval(1000);
         locationRequest.setFastestInterval(1000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, this);

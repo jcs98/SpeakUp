@@ -44,40 +44,43 @@ tools:context="snowleopard.speakup.ListViewActivity">
 
 
     <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:background="@color/colorCards">
+            android:background="@color/colorCards"
+            android:padding="20dp">
 
 
             <TextView
                 android:id="@+id/tv_lat"
-                android:layout_width="174dp"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Latitude"  />
+                android:hint="Latitude"
+                android:textSize="24sp"/>
 
             <TextView
                 android:id="@+id/tv_lng"
-                android:layout_width="174dp"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Longitude" />
+                android:hint="Longitude"
+                android:textSize="24sp" />
 
 
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btLoc"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Get location"
-            android:background="@color/colorCards"/>
+        <!--<Button-->
+            <!--android:id="@+id/btLoc"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Get location"-->
+            <!--android:background="@color/colorCards"/>-->
 
     </LinearLayout>
 

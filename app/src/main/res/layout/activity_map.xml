@@ -14,20 +14,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Seacrh"
+            android:hint="Where's your story at?"
             android:id="@+id/TF_location"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0"
-            android:text="GO"
+            android:text="Search"
             android:id="@+id/Go_btn"
             android:onClick="searchLocation"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_weight="0"
-            android:text="Add"
+            android:text="+"
             android:id="@+id/Add_btn"
             android:onClick="getInfoContents"/>
 

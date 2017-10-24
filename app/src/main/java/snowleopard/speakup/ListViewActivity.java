@@ -51,7 +51,7 @@ public class ListViewActivity extends AppCompatActivity {
         mAddNS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainIntent = new Intent(ListViewActivity.this, AddStoryActivity.class);
+                Intent mainIntent = new Intent(ListViewActivity.this, MapActivity.class);
                 startActivity(mainIntent);
             }
         });
