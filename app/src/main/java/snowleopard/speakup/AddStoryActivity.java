@@ -66,10 +66,10 @@ public class AddStoryActivity extends AppCompatActivity {
 
         String lat = getIntent().getStringExtra("lat");
         TextView latTv = (TextView) findViewById(R.id.tv_lat);
-        latTv.setText("Latitute: " + lat);
+        latTv.setText(lat);
         String lng = getIntent().getStringExtra("lng");
         TextView lngTv = (TextView) findViewById(R.id.tv_lng);
-        lngTv.setText("Longitude: " + lng);
+        lngTv.setText(lng);
 
 
         mImg.setOnClickListener(new View.OnClickListener() {

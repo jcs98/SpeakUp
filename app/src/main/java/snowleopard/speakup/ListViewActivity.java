@@ -52,6 +52,7 @@ public class ListViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent mainIntent = new Intent(ListViewActivity.this, MapActivity.class);
+
                 startActivity(mainIntent);
             }
         });

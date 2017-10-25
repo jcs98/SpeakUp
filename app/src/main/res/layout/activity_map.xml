@@ -20,16 +20,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0"
-            android:text="Search"
+            android:text="Go"
             android:id="@+id/Go_btn"
             android:onClick="searchLocation"/>
-        <Button
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:text="+"
-            android:id="@+id/Add_btn"
-            android:onClick="getInfoContents"/>
+
 
     </LinearLayout>
 

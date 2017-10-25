@@ -31,12 +31,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+import com.google.android.gms.maps.GoogleMap;
 import java.io.IOException;
 import java.util.List;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
     private GoogleApiClient client;
@@ -86,6 +86,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 mo.position(latLng);
                 mo.title(location);
                 mo.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                mo.draggable(true);
 
                 searchLocationMarker = mMap.addMarker(mo);
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -99,18 +100,20 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     }
 
-    public void getInfoContents(View view){
 
-        String lat = Double.toString(myAddress.getLatitude());
-        String lng = Double.toString(myAddress.getLongitude());
-
-        Intent intent = new Intent(MapActivity.this, AddStoryActivity.class);
-        intent.putExtra("lat", lat);
-        intent.putExtra("lng", lng);
-
-        startActivity(intent);
-
-    }
+//    The function called when + button pressed
+//    public void getInfoContents(View view){
+//
+//        String lat = Double.toString(myAddress.getLatitude());
+//        String lng = Double.toString(myAddress.getLongitude());
+//
+//        Intent intent = new Intent(MapActivity.this, AddStoryActivity.class);
+//        intent.putExtra("lat", lat);
+//        intent.putExtra("lng", lng);
+//
+//        startActivity(intent);
+//
+//    }
 
 
 //    public void getInfoContents(Marker searchLocationMarker ) {
@@ -219,6 +222,97 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
 
+        mMap.setOnInfoWindowClickListener(this);
+
+
+        if(mMap != null){
+
+            mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener(){
+
+
+                @Override
+                public void onMarkerDragStart(Marker marker) {
+
+                }
+
+                @Override
+                public void onMarkerDrag(Marker marker) {
+
+                }
+
+                @Override
+                public void onMarkerDragEnd(Marker marker) {
+
+                    Geocoder gc = new Geocoder(MapActivity.this);
+                    LatLng ll = marker.getPosition();
+                    List<android.location.Address> list = null;
+                    try {
+                        list = gc.getFromLocation(ll.latitude, ll.longitude, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    android.location.Address add = list.get(0);
+                    marker.setTitle(add.getLocality());
+                    marker.showInfoWindow();
+
+
+
+                }
+            });
+
+            mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                @Override
+                public View getInfoWindow(Marker marker) {
+                    return null;
+                }
+
+                @Override
+                public View getInfoContents(Marker marker) {
+
+                    View v =getLayoutInflater().inflate(R.layout.info_window, null);
+
+                    TextView tvlocality = (TextView) v.findViewById(R.id.tv_locality);
+                    TextView tvlat = (TextView) v.findViewById(R.id.tv_lat);
+                    TextView tvlng = (TextView) v.findViewById(R.id.tv_lng);
+                    TextView tvsnippet = (TextView) v.findViewById(R.id.tv_snippet);
+
+                    LatLng ll = marker.getPosition();
+                    tvlocality.setText(marker.getTitle());
+                    tvlat.setText("Latitude: " + ll.latitude);
+                    tvlng.setText("Longitude: " + ll.longitude);
+                    tvsnippet.setText(marker.getSnippet());
+
+
+                    return v;
+                }
+            });
+
+
+        }
+
+
+
+    }
+
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Toast.makeText(this, "Location added to story...",
+                Toast.LENGTH_SHORT).show();
+
+        LatLng ll = marker.getPosition();
+
+        String lat = Double.toString(ll.latitude);
+        String lng = Double.toString(ll.longitude);
+
+        Intent intent = new Intent(MapActivity.this, AddStoryActivity.class);
+        intent.putExtra("lat", lat);
+        intent.putExtra("lng", lng);
+
+        startActivity(intent);
+
+
+
     }
 
     protected synchronized void buildGoogleApiClient(){
@@ -243,6 +337,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         markerOptions.position(latLng);
         markerOptions.title("Current Location");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+        markerOptions.draggable(true);
 
         currentLocationMarker = mMap.addMarker(markerOptions);
 

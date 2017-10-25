@@ -71,8 +71,8 @@
             android:text="Login"
             android:layout_weight="1"
             android:id="@+id/loginButton"
-            android:textColor="@color/finale"
-            android:background="@color/colorCards"/>
+            android:background="@color/colorButtons"
+            android:layout_margin="10dp"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -80,8 +80,8 @@
             android:text="Need a new account?"
             android:layout_weight="1"
             android:id="@+id/registerButton"
-            android:textColor="@color/finale"
-            android:background="@color/colorCards"/>
+            android:background="@color/colorButtons"
+            android:layout_margin="10dp"/>
 
 
     </LinearLayout>

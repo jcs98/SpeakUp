@@ -10,7 +10,7 @@
         android:layout_height="84dp"
         android:orientation="horizontal"
         android:layout_margin="8dp"
-        android:background="@color/colorCards">
+        android:background="#444444">
 
 
         <ImageView
