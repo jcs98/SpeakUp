@@ -5,7 +5,7 @@ package snowleopard.speakup;
  */
 
 class Cards_ListViewActivity {
-    private String Title, Description, ImageUrl, Owner;
+    private String Title, Description, ImageUrl,Owner;
 
     public Cards_ListViewActivity() {
     }

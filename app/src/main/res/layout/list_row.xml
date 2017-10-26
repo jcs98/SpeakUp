@@ -8,9 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="84dp"
-        android:orientation="horizontal"
         android:layout_margin="8dp"
-        android:background="#444444">
+        android:background="#444444"
+        android:orientation="horizontal">
 
 
         <ImageView
@@ -25,7 +25,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -35,31 +36,32 @@
                 android:hint="title goes here"
                 android:inputType="textPersonName"
                 android:paddingLeft="10dp"
+                android:textColor="@color/finale"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/finale"/>
+                android:textStyle="bold" />
+
 
             <TextView
                 android:id="@+id/tvDesc"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:ems="10"
+                android:hint="description comes here"
+                android:inputType="textMultiLine"
+                android:paddingLeft="5dp"
+                android:textColor="@color/finale"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvDescO"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="description comes here"
                 android:inputType="textMultiLine"
                 android:paddingLeft="5dp"
-                android:textSize="20sp"
-                android:textColor="@color/finale"/>
-
-            <TextView
-                android:id="@+id/tvOwner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="5dp"
-                android:textSize="20sp"
-                android:textStyle="italic"
-                android:textColor="@color/finale"/>
+                android:textColor="@color/finale"
+                android:textSize="10sp" />
 
 
         </LinearLayout>

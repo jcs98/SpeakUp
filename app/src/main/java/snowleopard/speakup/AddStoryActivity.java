@@ -3,16 +3,21 @@ package snowleopard.speakup;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -59,8 +64,13 @@ public class AddStoryActivity extends AppCompatActivity {
 
         mImg = (ImageButton) findViewById(R.id.btImg);
 
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUser = mAuth.getCurrentUser();
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Story");
         mStorage  = FirebaseStorage.getInstance().getReference().child("Photos");
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentUser.getUid());
+
 
         mProgress = new ProgressDialog(this);
 
@@ -70,6 +80,15 @@ public class AddStoryActivity extends AppCompatActivity {
         String lng = getIntent().getStringExtra("lng");
         TextView lngTv = (TextView) findViewById(R.id.tv_lng);
         lngTv.setText(lng);
+
+        LinearLayout mLocation = (LinearLayout )findViewById(R.id.location);
+        mLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddStoryActivity.this,MapActivity.class);
+                startActivity(intent );
+            }
+        });
 
 
         mImg.setOnClickListener(new View.OnClickListener() {
@@ -106,12 +125,14 @@ public class AddStoryActivity extends AppCompatActivity {
                     newpost.child("Title").setValue(title);
                     newpost.child("Description").setValue(desc);
                     newpost.child("ImageUrl").setValue(DownloadUrl.toString().trim());
+                    newpost.child("Owner").setValue(mCurrentUser.getUid());
+
                     mProgress.dismiss();
+                    Intent intent = new Intent(AddStoryActivity.this,ListViewActivity.class);
+                    startActivity(intent );
 
 
-                    Intent mainIntent = new Intent(AddStoryActivity.this, ListViewActivity.class);
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(mainIntent);
+
                 }
             });
         }

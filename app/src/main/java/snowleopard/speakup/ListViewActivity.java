@@ -31,6 +31,8 @@ public class ListViewActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FloatingActionButton mAddNS;
     private DatabaseReference mDatabaseUsers;
+    private DatabaseReference mDatabaseUser;
+
 
     private FirebaseAuth mAuth;
     @Override
@@ -44,6 +46,7 @@ public class ListViewActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Story");
+
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabase.keepSynced(true);
         mDatabaseUsers.keepSynced(true);
@@ -51,7 +54,7 @@ public class ListViewActivity extends AppCompatActivity {
         mAddNS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainIntent = new Intent(ListViewActivity.this, MapActivity.class);
+                Intent mainIntent = new Intent(ListViewActivity.this, AddStoryActivity.class);
 
                 startActivity(mainIntent);
             }
@@ -69,10 +72,26 @@ public class ListViewActivity extends AppCompatActivity {
         ) {
 
             @Override
-            protected void populateViewHolder(cardViewHolder viewHolder, Cards_ListViewActivity model, int position) {
-                viewHolder.setTitle(model.getTitle());
+            protected void populateViewHolder(final cardViewHolder viewHolder, final Cards_ListViewActivity model, int position) {
+
                 viewHolder.setDescription(model.getDescription());
-                viewHolder.setOwner(model.getOwner());
+
+               // mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getOwner());
+
+                mDatabaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        DataSnapshot owners =(dataSnapshot.child(model.getOwner()).child("name"));
+                        viewHolder.setOwner(owners.getValue().toString());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                viewHolder.setTitle(model.getTitle());
                 viewHolder.setImageUrl(getApplicationContext(),model.getImageURL());
 
             }
@@ -99,6 +118,7 @@ public class ListViewActivity extends AppCompatActivity {
 
 
                 }
+
             }
 
             @Override
@@ -128,7 +148,7 @@ public class ListViewActivity extends AppCompatActivity {
             post_desc.setText(description);
         }
         public void setOwner(String owner){
-            TextView post_owner = (TextView) mView.findViewById(R.id.tvOwner);
+            TextView post_owner = (TextView) mView.findViewById(R.id.tvDescO);
             post_owner.setText(owner); }
 
         public void setImageUrl(Context ctx, String image){
