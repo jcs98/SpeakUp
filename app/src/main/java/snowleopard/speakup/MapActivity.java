@@ -305,16 +305,30 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         String lat = Double.toString(ll.latitude);
         String lng = Double.toString(ll.longitude);
 
-        Intent intent = new Intent(MapActivity.this, AddStoryActivity.class);
-        intent.putExtra("lat", lat);
-        intent.putExtra("lng", lng);
+//        Intent intent = new Intent(MapActivity.this, AddStoryActivity.class);
+//        intent.putExtra("lat", lat);
+//        intent.putExtra("lng", lng);
+//
+//        startActivity(intent);
+//        finish();
 
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent();
+//        intent.putExtra("lat", lat);
+//        intent.putExtra("lng", lng);
+//        setResult(RESULT_OK, intent);
+//        super.
+            finish(lat, lng);
 
+    }
 
-
-
+    public void finish(String lat, String lng) {
+        // Prepare data intent
+        Intent data = new Intent();
+        data.putExtra("lat", lat);
+        data.putExtra("lng", lng);
+        // Activity finished ok, return the data
+        setResult(RESULT_OK, data);
+        super.finish();
     }
 
     protected synchronized void buildGoogleApiClient(){

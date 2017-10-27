@@ -80,19 +80,19 @@ public class AddStoryActivity extends AppCompatActivity {
 
         mProgress = new ProgressDialog(this);
 
-        String lat = getIntent().getStringExtra("lat");
-        TextView latTv = (TextView) findViewById(R.id.tv_lat);
-        latTv.setText(lat);
-        String lng = getIntent().getStringExtra("lng");
-        TextView lngTv = (TextView) findViewById(R.id.tv_lng);
-        lngTv.setText(lng);
+//        String lat = getIntent().getStringExtra("lat");
+//        TextView latTv = (TextView) findViewById(R.id.tv_lat);
+//        latTv.setText(lat);
+//        String lng = getIntent().getStringExtra("lng");
+//        TextView lngTv = (TextView) findViewById(R.id.tv_lng);
+//        lngTv.setText(lng);
 
         LinearLayout mLocation = (LinearLayout )findViewById(R.id.location);
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddStoryActivity.this,MapActivity.class);
-                startActivity(intent );
+                startActivityForResult(intent, 0 );
             }
         });
 
@@ -156,5 +156,16 @@ public class AddStoryActivity extends AppCompatActivity {
             mImgU = data.getData();
             mImg.setImageURI(mImgU);
         }
+
+        if(requestCode == 0 && resultCode == RESULT_OK)
+        {
+            String lat = data.getStringExtra("lat");
+            TextView latTv = (TextView) findViewById(R.id.tv_lat);
+            latTv.setText(lat);
+            String lng = data.getStringExtra("lng");
+            TextView lngTv = (TextView) findViewById(R.id.tv_lng);
+            lngTv.setText(lng);
+        }
+
     }
 }
