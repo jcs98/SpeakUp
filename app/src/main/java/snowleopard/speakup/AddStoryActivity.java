@@ -34,6 +34,9 @@ public class AddStoryActivity extends AppCompatActivity {
     private EditText mTitle;
     private EditText mDesc;
 
+    private TextView mLat;
+    private TextView mLang;
+
     private Button mSubmit;
 
     private ImageButton mImg;
@@ -59,6 +62,9 @@ public class AddStoryActivity extends AppCompatActivity {
 
         mTitle = (EditText)findViewById(R.id.etTitle);
         mDesc = (EditText)findViewById(R.id.etDesc);
+        mLang = (TextView)findViewById(R.id.tv_lng);
+        mLat = (TextView)findViewById(R.id.tv_lat);
+
 
         mSubmit= (Button) findViewById(R.id.btSub);
 
@@ -113,6 +119,8 @@ public class AddStoryActivity extends AppCompatActivity {
         mProgress.show();
         final String title = mTitle.getText().toString().trim();
         final String desc = mDesc.getText().toString().trim();
+        final String latitude = mLat.getText().toString().trim();
+        final String longitude = mLang.getText().toString().trim();
 
         if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(desc))
         {
@@ -124,14 +132,15 @@ public class AddStoryActivity extends AppCompatActivity {
                     final DatabaseReference newpost = mDatabase.push();
                     newpost.child("Title").setValue(title);
                     newpost.child("Description").setValue(desc);
+                    newpost.child("Latitude").setValue(latitude);
+                    newpost.child("Longitude").setValue(longitude);
                     newpost.child("ImageUrl").setValue(DownloadUrl.toString().trim());
                     newpost.child("Owner").setValue(mCurrentUser.getUid());
 
                     mProgress.dismiss();
                     Intent intent = new Intent(AddStoryActivity.this,ListViewActivity.class);
                     startActivity(intent );
-
-
+                    finish();
 
                 }
             });
