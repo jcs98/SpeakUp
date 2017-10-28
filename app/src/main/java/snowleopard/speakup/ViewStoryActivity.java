@@ -5,14 +5,46 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class ViewStoryActivity extends AppCompatActivity {
 
     private Button report;
+    private TextView mTitle;
+    private TextView mDescription;
+    private ImageView mImage;
+    private DatabaseReference mStory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_story);
+        String key = getIntent().getStringExtra("Key");
+        mStory = FirebaseDatabase.getInstance().getReference("Story").child(key);
+        mTitle = (TextView) findViewById(R.id.titleView);
+        mDescription = (TextView) findViewById(R.id.descView);
+        mImage = (ImageView) findViewById(R.id.imageView);
+        mStory.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mTitle.setText(dataSnapshot.child("Title").getValue().toString());
+                mDescription.setText(dataSnapshot.child("Description").getValue().toString());
+                Picasso.with(getApplicationContext()).load(dataSnapshot.child("ImageUrl").getValue().toString()).into(mImage);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         report =(Button) findViewById(R.id.button3);
         report.setOnClickListener(new View.OnClickListener() {

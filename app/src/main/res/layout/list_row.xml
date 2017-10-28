@@ -21,7 +21,8 @@
             android:layout_height="match_parent"
             android:cropToPadding="true"
             android:scaleType="centerCrop"
-            app:srcCompat="@color/cardview_light_background" />
+            app:srcCompat="@color/cardview_light_background"
+            android:onClick="viewActivity"/>
 
 
         <LinearLayout
@@ -40,7 +41,8 @@
                 android:paddingLeft="10dp"
                 android:textColor="@color/finale"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="viewActivity"/>
 
 
             <TextView
@@ -52,7 +54,8 @@
                 android:inputType="textMultiLine"
                 android:paddingLeft="5dp"
                 android:textColor="@color/finale"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:onClick="viewActivity"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,13 +73,15 @@
                     android:paddingLeft="5dp"
                     android:textColor="@color/finale"
                     android:textSize="10sp"
-                    tools:text="Owner Comes here" />
+                    tools:text="Owner Comes here"
+                    android:onClick="viewActivity"/>
 
                 <ImageButton
                     android:id="@+id/like_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
+                    android:onClick="Like"
                     app:srcCompat="@mipmap/likeblack" />
             </LinearLayout>
 

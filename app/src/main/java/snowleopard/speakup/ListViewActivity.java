@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,7 @@ public class ListViewActivity extends AppCompatActivity {
     private FloatingActionButton mAddNS;
     private DatabaseReference mDatabaseUsers;
     private DatabaseReference mDatabaseUser;
+    private static final String TAG = "MyActivity";
     private boolean mProcessLike=false;
     private DatabaseReference mDatabaseLike;
     SharedPreferences pref;
@@ -43,7 +45,7 @@ public class ListViewActivity extends AppCompatActivity {
     private static final String IS_LOGIN = "IsLoggedIn";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
-
+    private static String post_key0;
     ImageButton mLikebtn;
 
 
@@ -141,15 +143,17 @@ public class ListViewActivity extends AppCompatActivity {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setImageUrl(getApplicationContext(),model.getImageURL());
                 viewHolder.setLikeBtn(post_key);
+                post_key0=getRef(viewHolder.getLayoutPosition()).getKey();
                 viewHolder.mLikebtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         mProcessLike = true;
-
+                        post_key0=getRef(viewHolder.getLayoutPosition()).getKey();
                         mDatabaseLike.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (mProcessLike) {
+                                    Log.i(TAG, "MyClass.getView() — get item number " + post_key);
                                     if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
                                         mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).removeValue();
                                         mProcessLike = false;
@@ -233,7 +237,9 @@ public class ListViewActivity extends AppCompatActivity {
         public void setLikeBtn(final String post_key){
             mDatabaseLike.addValueEventListener(new ValueEventListener() {
                 @Override
+
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    mLikebtn.setImageResource(R.mipmap.likegray);
                     if(dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
                         mLikebtn.setImageResource(R.mipmap.likegray);
 
@@ -263,5 +269,10 @@ public class ListViewActivity extends AppCompatActivity {
             Picasso.with(ctx).load(image).into(post_image);
 
         }
+    }
+    public void viewActivity(View view){
+        Intent viewActivity = new Intent(ListViewActivity.this,ViewStoryActivity.class);
+        viewActivity.putExtra("Key",post_key0);
+        startActivity(viewActivity);
     }
 }
