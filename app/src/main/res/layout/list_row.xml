@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@mipmap/likeblack" />
+                    app:srcCompat="@mipmap/ic_thumb_up_black_24dp" />
             </LinearLayout>
 
 

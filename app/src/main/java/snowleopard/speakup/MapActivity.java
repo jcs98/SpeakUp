@@ -317,7 +317,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 //        intent.putExtra("lng", lng);
 //        setResult(RESULT_OK, intent);
 //        super.
-            finish(lat, lng);
+        finish(lat, lng);
 
     }
 

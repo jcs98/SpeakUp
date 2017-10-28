@@ -235,11 +235,11 @@ public class ListViewActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
-                        mLikebtn.setImageResource(R.mipmap.likegray);
+                        mLikebtn.setImageResource(R.mipmap.ic_thumb_up_black_24dp);
 
                     }
                     else{
-                        mLikebtn.setImageResource(R.mipmap.likeblack);
+                        mLikebtn.setImageResource(R.mipmap.ic_add_white_24dp);
                     }
                 }
 
