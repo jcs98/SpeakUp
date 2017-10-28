@@ -76,6 +76,17 @@ public class ListViewActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    public void openMapView(View view){
+
+        Intent intent = new Intent(ListViewActivity.this, MappingActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+
     public void createLoginSession(String name, String email) {
 
         editor.putBoolean(IS_LOGIN, true);
