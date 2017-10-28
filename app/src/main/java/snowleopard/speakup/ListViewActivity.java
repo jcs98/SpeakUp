@@ -13,6 +13,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -50,6 +51,12 @@ public class ListViewActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     ImageButton mLikebtn;
+
+    // Shared pref mode
+    int PRIVATE_MODE = 0;
+
+
+
 
 
     @Override
@@ -302,4 +309,48 @@ public class ListViewActivity extends AppCompatActivity {
 
         }
     }
+
+
+
+
+    @Override
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_settings:
+
+                showToast("Settings Clicked");
+
+                return true;
+
+            case R.id.action_logout:
+
+//                Intent intent = new Intent(ListViewActivity.this, MainActivity.class);
+                mAuth.signOut();
+//                startActivity(intent);
+//                finish();
+                return true;
+
+
+            default:
+
+                return super.onOptionsItemSelected(item);
+
+        }
+
+    }
+
+    public void showToast(String message)
+
+    {
+
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+
+        toast.show();
+
+    }
+
+
 }
