@@ -3,6 +3,7 @@ package snowleopard.speakup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,13 @@ public class ListViewActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseUser;
     private boolean mProcessLike=false;
     private DatabaseReference mDatabaseLike;
+    SharedPreferences pref;
+    Context _context;
+    SharedPreferences.Editor editor;
+    private static final String IS_LOGIN = "IsLoggedIn";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_EMAIL = "email";
+
     ImageButton mLikebtn;
 
 
@@ -44,6 +52,8 @@ public class ListViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        SharedPreferences.Editor editor = pref.edit();
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         setContentView(R.layout.activity_list_view);
         mList = (RecyclerView) findViewById(R.id.list);
@@ -66,6 +76,30 @@ public class ListViewActivity extends AppCompatActivity {
             }
         });
     }
+    public void createLoginSession(String name, String email) {
+
+        editor.putBoolean(IS_LOGIN, true);
+        editor.putString(KEY_NAME, name);
+        editor.putString(KEY_EMAIL, email);
+        editor.commit();
+    }
+
+    public void checkLogin() {
+
+        if (!this.isLoggedIn()) {
+
+            Intent i = new Intent(_context, MainActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            _context.startActivity(i);
+        }
+    }
+
+    public boolean isLoggedIn() {
+
+        return pref.getBoolean(IS_LOGIN, false);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -200,9 +234,8 @@ public class ListViewActivity extends AppCompatActivity {
             mDatabaseLike.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(!dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
+                    if(dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
                         mLikebtn.setImageResource(R.mipmap.likegray);
-                        mDatabaseLike.keepSynced(true);
 
                     }
                     else{

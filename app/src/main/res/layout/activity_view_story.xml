@@ -17,7 +17,7 @@
         tools:layout_editor_absoluteY="11dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/titleView"
         android:layout_width="353dp"
         android:layout_height="50dp"
         android:textSize="25dp"
@@ -37,7 +37,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/descView"
                 android:layout_width="355dp"
                 android:layout_height="166dp"
                 android:scrollbarSize="9dp"
