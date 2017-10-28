@@ -195,7 +195,6 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
         intent.putExtra("lng", lng);
 
         startActivity(intent);
-        finish();
 
     }
 

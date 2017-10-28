@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,18 +38,20 @@ public class ListViewActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseUser;
     private boolean mProcessLike=false;
     private DatabaseReference mDatabaseLike;
-    SharedPreferences pref;
-    Context _context;
-    SharedPreferences.Editor editor;
+    private SharedPreferences pref;
+    private Context _context;
+    private SharedPreferences.Editor editor;
     private static final String IS_LOGIN = "IsLoggedIn";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
 
+    private Button mLogoutBtn;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth mAuth;
+
     ImageButton mLikebtn;
 
 
-
-    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,28 @@ public class ListViewActivity extends AppCompatActivity {
         //mList.hasFixedSize(true);
         mList.setLayoutManager(new LinearLayoutManager(this));
         mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
+                if(mAuth.getCurrentUser() == null){
+                    startActivity(new Intent(ListViewActivity.this, MainActivity.class));
+                }
+            }
+        };
+
+//        if(mAuth.getCurrentUser() == null){
+//            startActivity(new Intent(ListViewActivity.this, MainActivity.class));
+//        }
+
+//        mLogoutBtn = (Button) findViewById(R.id.action_logout);
+//
+//        mLogoutBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mAuth.signOut();
+//            }
+//        });
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Story");
         mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("Likes");
@@ -188,6 +213,8 @@ public class ListViewActivity extends AppCompatActivity {
             }
         };
         mList.setAdapter(firebaserecycleradapter);
+
+        mAuth.addAuthStateListener(mAuthListener);
 
 
     }

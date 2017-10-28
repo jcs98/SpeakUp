@@ -8,6 +8,9 @@
     <item android:title="Settings"
         android:id="@+id/action_settings"
         app:showAsAction="never"/>
+    <item android:title="Logout"
+        android:id="@+id/action_logout"
+        app:showAsAction="never"/>
 
 
 </menu>
