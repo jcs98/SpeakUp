@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +36,13 @@ import com.google.android.gms.maps.GoogleMap;
 import java.io.IOException;
 import java.util.List;
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleMap.OnInfoWindowClickListener {
+/**
+ * Created by jcsha on 28-10-2017.
+ */
+
+public class MappingActivity extends FragmentActivity implements OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        LocationListener, GoogleMap.OnInfoWindowClickListener{
 
     private GoogleMap mMap;
     private GoogleApiClient client;
@@ -50,7 +56,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_mapping);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             checkLocationPermission();
@@ -58,120 +64,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(R.id.mapping);
         mapFragment.getMapAsync(this);
-    }
-
-    public void searchLocation(View view){
-        EditText tf_location = (EditText)findViewById(R.id.TF_location);
-        String location = tf_location.getText().toString();
-        List<Address> addressList = null;
-        MarkerOptions mo = new MarkerOptions();
-
-        if(searchLocationMarker != null){
-            searchLocationMarker.remove();
-        }
-
-        if(!location.equals("")){
-            Geocoder geocoder = new Geocoder(this);
-            try {
-                addressList = geocoder.getFromLocationName(location, 1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            for(int i = 0; i<addressList.size(); i++){
-                myAddress = addressList.get(i);
-                LatLng latLng = new LatLng(myAddress.getLatitude(), myAddress.getLongitude());
-                mo.position(latLng);
-                mo.title(location);
-                mo.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                mo.draggable(true);
-
-                searchLocationMarker = mMap.addMarker(mo);
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
 
-
-
-
-            }
-        }
 
     }
 
-
-//    The function called when + button pressed
-//    public void getInfoContents(View view){
-//
-//        String lat = Double.toString(myAddress.getLatitude());
-//        String lng = Double.toString(myAddress.getLongitude());
-//
-//        Intent intent = new Intent(MapActivity.this, AddStoryActivity.class);
-//        intent.putExtra("lat", lat);
-//        intent.putExtra("lng", lng);
-//
-//        startActivity(intent);
-//
-//    }
-
-
-//    public void getInfoContents(Marker searchLocationMarker ) {
-//
-//        View v =getLayoutInflater().inflate(R.layout.activity_add_story, null);
-//
-//        //TextView tvlocality = (TextView) v.findViewById(R.id.tv_locality);
-//        TextView tvlat = (TextView) v.findViewById(R.id.tv_lat);
-//        TextView tvlng = (TextView) v.findViewById(R.id.tv_lng);
-//        //TextView tvsnippet = (TextView) v.findViewById(R.id.tv_snippet);
-//
-//        LatLng ll = searchLocationMarker.getPosition();
-//        //tvlocality.setText(searchLocationMarker .getTitle());
-//        tvlat.setText("Latitude: " + ll.latitude);
-//        tvlng.setText("Longitude: " + ll.longitude);
-//        //tvsnippet.setText(searchLocationMarker .getSnippet());
-//
-//
-//   //     return v;
-//    }
-
-
-
-
-
-//J pass lat lng
-//    public void passLocation(View view){
-//        EditText tf_location = (EditText)findViewById(R.id.TF_location);
-//        String location = tf_location.getText().toString();
-//        List<Address> addressList = null;
-//        MarkerOptions mo = new MarkerOptions();
-//
-//
-//        if(!location.equals("")){
-//            Geocoder geocoder = new Geocoder(this);
-//            try {
-//                addressList = geocoder.getFromLocationName(location, 1);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            for(int i = 0; i<addressList.size(); i++){
-//                Address myAddress = addressList.get(i);
-//                LatLng latLng = new LatLng(myAddress.getLatitude(), myAddress.getLongitude());
-//
-//                TextView tvlat = (TextView) view.findViewById(R.id.tv_lat);
-//                TextView tvlng = (TextView) view.findViewById(R.id.tv_lng);
-//
-//                tvlat.setText("Latitude: " + myAddress.getLatitude());
-//                tvlng.setText("Longitude: " + myAddress.getLongitude());
-//
-////                Intent intent = new Intent(MapActivity.this, AddStoryActivity.class);
-////                startActivity(intent);
-//            }
-//        }
-//
-//
-//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -193,16 +92,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         }
     }
 
+    public void openListView(View view){
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+        Intent intent = new Intent(MappingActivity.this, ListViewActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -216,49 +113,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         }
 
 
-//        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-
         mMap.setOnInfoWindowClickListener(this);
 
 
         if(mMap != null){
 
-            mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener(){
-
-
-                @Override
-                public void onMarkerDragStart(Marker marker) {
-
-                }
-
-                @Override
-                public void onMarkerDrag(Marker marker) {
-
-                }
-
-                @Override
-                public void onMarkerDragEnd(Marker marker) {
-
-                    Geocoder gc = new Geocoder(MapActivity.this);
-                    LatLng ll = marker.getPosition();
-                    List<android.location.Address> list = null;
-                    try {
-                        list = gc.getFromLocation(ll.latitude, ll.longitude, 1);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    android.location.Address add = list.get(0);
-                    marker.setTitle(add.getLocality());
-                    marker.showInfoWindow();
-
-
-
-                }
-            });
 
             mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                 @Override
@@ -288,16 +147,41 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             });
 
 
+            //Loop to put markers on map
+
+            for(int i = 0; i<1; i++ ){
+
+                LatLng latLng = new LatLng(18.98179250633769, 18.98179250633769);
+
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
+                markerOptions.title("Story title goes here");
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+
+                mMap.addMarker(markerOptions);
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
         }
-
-
 
     }
 
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Toast.makeText(this, "Location added to story...",
+        Toast.makeText(this, "Opening story...",
                 Toast.LENGTH_SHORT).show();
 
         LatLng ll = marker.getPosition();
@@ -305,31 +189,15 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         String lat = Double.toString(ll.latitude);
         String lng = Double.toString(ll.longitude);
 
-//        Intent intent = new Intent(MapActivity.this, AddStoryActivity.class);
-//        intent.putExtra("lat", lat);
-//        intent.putExtra("lng", lng);
-//
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(MappingActivity.this, ViewStoryActivity.class);
 
-//        Intent intent = new Intent();
-//        intent.putExtra("lat", lat);
-//        intent.putExtra("lng", lng);
-//        setResult(RESULT_OK, intent);
-//        super.
-        finish(lat, lng);
+        intent.putExtra("lat", lat);
+        intent.putExtra("lng", lng);
+
+        startActivity(intent);
 
     }
 
-    public void finish(String lat, String lng) {
-        // Prepare data intent
-        Intent data = new Intent();
-        data.putExtra("lat", lat);
-        data.putExtra("lng", lng);
-        // Activity finished ok, return the data
-        setResult(RESULT_OK, data);
-        super.finish();
-    }
 
     protected synchronized void buildGoogleApiClient(){
 
@@ -353,7 +221,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         markerOptions.position(latLng);
         markerOptions.title("Current Location");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
-        markerOptions.draggable(true);
 
         currentLocationMarker = mMap.addMarker(markerOptions);
 
@@ -406,4 +273,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
+
+
 }

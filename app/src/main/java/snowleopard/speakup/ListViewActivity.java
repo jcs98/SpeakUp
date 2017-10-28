@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -39,18 +41,26 @@ public class ListViewActivity extends AppCompatActivity {
     private static final String TAG = "MyActivity";
     private boolean mProcessLike=false;
     private DatabaseReference mDatabaseLike;
-    SharedPreferences pref;
-    Context _context;
-    SharedPreferences.Editor editor;
+    private SharedPreferences pref;
+    private Context _context;
+    private SharedPreferences.Editor editor;
     private static final String IS_LOGIN = "IsLoggedIn";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
+    private Button mLogoutBtn;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private static String post_key0;
+    private FirebaseAuth mAuth;
+
     ImageButton mLikebtn;
 
+    // Shared pref mode
+    int PRIVATE_MODE = 0;
 
 
-    private FirebaseAuth mAuth;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +72,28 @@ public class ListViewActivity extends AppCompatActivity {
         //mList.hasFixedSize(true);
         mList.setLayoutManager(new LinearLayoutManager(this));
         mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
+                if(mAuth.getCurrentUser() == null){
+                    startActivity(new Intent(ListViewActivity.this, MainActivity.class));
+                }
+            }
+        };
+
+//        if(mAuth.getCurrentUser() == null){
+//            startActivity(new Intent(ListViewActivity.this, MainActivity.class));
+//        }
+
+//        mLogoutBtn = (Button) findViewById(R.id.action_logout);
+//
+//        mLogoutBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mAuth.signOut();
+//            }
+//        });
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Story");
         mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("Likes");
@@ -78,6 +110,17 @@ public class ListViewActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    public void openMapView(View view){
+
+        Intent intent = new Intent(ListViewActivity.this, MappingActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+
     public void createLoginSession(String name, String email) {
 
         editor.putBoolean(IS_LOGIN, true);
@@ -182,6 +225,8 @@ public class ListViewActivity extends AppCompatActivity {
         };
         mList.setAdapter(firebaserecycleradapter);
 
+        mAuth.addAuthStateListener(mAuthListener);
+
 
     }
 
@@ -275,4 +320,48 @@ public class ListViewActivity extends AppCompatActivity {
         viewActivity.putExtra("Key",post_key0);
         startActivity(viewActivity);
     }
+
+
+
+
+    @Override
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_settings:
+
+                showToast("Settings Clicked");
+
+                return true;
+
+            case R.id.action_logout:
+
+//                Intent intent = new Intent(ListViewActivity.this, MainActivity.class);
+                mAuth.signOut();
+//                startActivity(intent);
+//                finish();
+                return true;
+
+
+            default:
+
+                return super.onOptionsItemSelected(item);
+
+        }
+
+    }
+
+    public void showToast(String message)
+
+    {
+
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+
+        toast.show();
+
+    }
+
+
 }

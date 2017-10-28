@@ -8,6 +8,7 @@ package snowleopard.speakup;
         import android.os.Bundle;
         import android.text.TextUtils;
         import android.util.Log;
+        import android.view.KeyEvent;
         import android.view.Menu;
         import android.view.View;
         import android.widget.Button;
@@ -40,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private FirebaseDatabase mDatabase;
 
+
+
+    // Session Manager Class
+    ListViewActivity session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         mLoginEmailField = (EditText) findViewById(R.id.loginEmailField);
         mLoginBtn = (Button) findViewById(R.id.loginButton);
         mRegisterBtn = (Button) findViewById(R.id.registerButton);
+
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,5 +151,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+//    @Override
+//    public void finish() {
+//
+//        this.finish();
+//        super.finish();
+//    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if((keyCode == KeyEvent.KEYCODE_BACK)){
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }
