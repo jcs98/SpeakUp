@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,10 @@ public class ListViewActivity extends AppCompatActivity {
     private FloatingActionButton mAddNS;
     private DatabaseReference mDatabaseUsers;
     private DatabaseReference mDatabaseUser;
+    private boolean mProcessLike=false;
+    private DatabaseReference mDatabaseLike;
+    ImageButton mLikebtn;
+
 
 
     private FirebaseAuth mAuth;
@@ -47,7 +52,7 @@ public class ListViewActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Story");
-
+        mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("Likes");
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabase.keepSynced(true);
         mDatabaseUsers.keepSynced(true);
@@ -81,6 +86,7 @@ public class ListViewActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(final cardViewHolder viewHolder, final Cards_ListViewActivity model, int position) {
 
+                final String post_key = getRef(position).getKey();
                 viewHolder.setDescription(model.getDescription());
 
                // mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getOwner());
@@ -100,6 +106,39 @@ public class ListViewActivity extends AppCompatActivity {
 
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setImageUrl(getApplicationContext(),model.getImageURL());
+                viewHolder.setLikeBtn(post_key);
+                viewHolder.mLikebtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mProcessLike = true;
+
+                        mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (mProcessLike) {
+                                    if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
+                                        mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).removeValue();
+                                        mProcessLike = false;
+
+                                    } else {
+                                        mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).setValue("Liked");
+
+                                        mProcessLike = false;
+                                    }
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+
+                });
+
 
             }
         };
@@ -138,16 +177,44 @@ public class ListViewActivity extends AppCompatActivity {
 
     public static class cardViewHolder extends RecyclerView.ViewHolder {
         View mView;
+        ImageButton mLikebtn;
+        DatabaseReference mDatabaseLike;
+        FirebaseAuth mAuth;
+
 
         public cardViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+            mLikebtn = (ImageButton) mView.findViewById(R.id.like_btn);
+            mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("likes");
+            mAuth=FirebaseAuth.getInstance();
+            mDatabaseLike.keepSynced(true);
         }
 
         public void setTitle(String title) {
             TextView post_title = (TextView) mView.findViewById(R.id.tvTitle);
             post_title.setText(title);
 
+        }
+        public void setLikeBtn(final String post_key){
+            mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(!dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
+                        mLikebtn.setImageResource(R.mipmap.likegray);
+                        mDatabaseLike.keepSynced(true);
+
+                    }
+                    else{
+                        mLikebtn.setImageResource(R.mipmap.likeblack);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
 
         public void setDescription(String description) {
