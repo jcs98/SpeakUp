@@ -208,16 +208,24 @@ public class ListViewActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (mProcessLike) {
+                                    int number=0;
+                                    if(dataSnapshot.child(post_key).hasChild("NumberOfLikes"))
+                                    {
+                                        number = Integer.parseInt(dataSnapshot.child(post_key).child("NumberOfLikes").getValue().toString());
+                                    }
 
                                     if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
                                         mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).removeValue();
                                         mProcessLike = false;
+                                        number--;
 
                                     } else {
                                         mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).setValue("Liked");
-
+                                        number++;
                                         mProcessLike = false;
                                     }
+                                    mDatabaseLike.child(post_key).child("NumberOfLikes").setValue(number);
+
 
                                 }
                             }

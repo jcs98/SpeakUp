@@ -53,14 +53,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="25dp"
+        android:baselineAligned="false">
 
         <ImageButton
             android:id="@+id/mLike"
-            android:layout_width="50dp"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.11"
-            android:text="Like" />
+            android:background="#00ffffff"
+            android:scaleType="fitCenter"
+            app:srcCompat="@mipmap/ic_thumb_up_black_24dp" />
+        android:onClick="Like"/>
 
         <Button
             android:id="@+id/button3"

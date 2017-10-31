@@ -62,16 +62,23 @@ public class ViewStoryActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (mProcessLike) {
+                            int number=0;
+                            if(dataSnapshot.child(key).hasChild("NumberOfLikes"))
+                            {
+                                number = Integer.parseInt(dataSnapshot.child(key).child("NumberOfLikes").getValue().toString());
+                            }
 
                             if (dataSnapshot.child(key).hasChild(mAuth.getCurrentUser().getUid())) {
                                 mDatabaseLike.child(key).child(mAuth.getCurrentUser().getUid()).removeValue();
                                 mProcessLike = false;
+                                number--;
 
                             } else {
                                 mDatabaseLike.child(key).child(mAuth.getCurrentUser().getUid()).setValue("Liked");
-
+                                number++;
                                 mProcessLike = false;
                             }
+                            mDatabaseLike.child(key).child("NumberOfLikes").setValue(number);
 
                         }
                     }
@@ -84,6 +91,24 @@ public class ViewStoryActivity extends AppCompatActivity {
 
             }
 
+        });
+        mDatabaseLike.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.child(key).hasChild(mAuth.getCurrentUser().getUid())){
+                    mLike.setImageResource(R.mipmap.likegray);
+
+                }
+                else{
+                    mLike.setImageResource(R.mipmap.likeblack);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
         });
 
 
@@ -112,5 +137,6 @@ public class ViewStoryActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }
