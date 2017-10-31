@@ -244,8 +244,8 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
 
         currentLocationMarker = mMap.addMarker(markerOptions);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomBy(10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+//        mMap.animateCamera(CameraUpdateFactory.zoomBy(10));
 
         if(client != null){
             LocationServices.FusedLocationApi.removeLocationUpdates(client, this);
