@@ -122,7 +122,7 @@ public class AddStoryActivity extends AppCompatActivity {
         final String latitude = mLat.getText().toString().trim();
         final String longitude = mLang.getText().toString().trim();
 
-        if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(desc))
+        if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(desc) && !TextUtils.isEmpty(latitude) && !TextUtils.isEmpty(longitude))
         {
             StorageReference filepath = mStorage.child(mImgU.getLastPathSegment());
             filepath.putFile(mImgU).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

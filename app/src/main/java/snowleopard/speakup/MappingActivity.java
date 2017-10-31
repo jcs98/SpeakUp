@@ -33,6 +33,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -52,6 +58,7 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
     private Marker searchLocationMarker;
     public static final int REQUEST_LOCATION_CODE = 99;
     private Address myAddress;
+    private DatabaseReference mLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +73,7 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapping);
         mapFragment.getMapAsync(this);
-
-
-
+        mLoc = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Story");
     }
 
 
@@ -148,17 +153,39 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
 
 
             //Loop to put markers on map
+            mLoc.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        double Lat = Double.parseDouble(snapshot.child("Latitude").getValue().toString());
+                        double Long = Double.parseDouble(snapshot.child("Longitude").getValue().toString());
+                        String Title = snapshot.child("Title").getValue().toString();
+                        
+
+                        LatLng latLng = new LatLng(Lat, Long);
+
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(latLng);
+                        markerOptions.title(Title);
+                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+
+                        mMap.addMarker(markerOptions);
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
 
             for(int i = 0; i<1; i++ ){
 
-                LatLng latLng = new LatLng(18.98179250633769, 18.98179250633769);
 
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title("Story title goes here");
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
-
-                mMap.addMarker(markerOptions);
 
 
             }
