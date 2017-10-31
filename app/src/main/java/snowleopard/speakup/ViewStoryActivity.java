@@ -5,9 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,17 +23,70 @@ public class ViewStoryActivity extends AppCompatActivity {
     private Button report;
     private TextView mTitle;
     private TextView mDescription;
+    private DatabaseReference mDatabaseUsers;
+    private DatabaseReference mDatabaseLike;
+    private DatabaseReference mDatabase;
+
+
     private ImageView mImage;
     private DatabaseReference mStory;
+    private ImageButton mLike;
+    private String key;
+    private FirebaseAuth mAuth;
+
+    private boolean mProcessLike=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_story);
-        String key = getIntent().getStringExtra("Key");
+        key = getIntent().getStringExtra("Key");
         mStory = FirebaseDatabase.getInstance().getReference("Story").child(key);
         mTitle = (TextView) findViewById(R.id.titleView);
         mDescription = (TextView) findViewById(R.id.descView);
+
         mImage = (ImageView) findViewById(R.id.imageView);
+        mLike = (ImageButton) findViewById(R.id.mLike);
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Story");
+        mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("Likes");
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabase.keepSynced(true);
+        mDatabaseUsers.keepSynced(true);
+        mDatabaseLike.keepSynced(true);
+        mLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mProcessLike = true;
+                mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (mProcessLike) {
+
+                            if (dataSnapshot.child(key).hasChild(mAuth.getCurrentUser().getUid())) {
+                                mDatabaseLike.child(key).child(mAuth.getCurrentUser().getUid()).removeValue();
+                                mProcessLike = false;
+
+                            } else {
+                                mDatabaseLike.child(key).child(mAuth.getCurrentUser().getUid()).setValue("Liked");
+
+                                mProcessLike = false;
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+        });
+
+
         mStory.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -56,4 +112,5 @@ public class ViewStoryActivity extends AppCompatActivity {
             }
         });
     }
+
 }

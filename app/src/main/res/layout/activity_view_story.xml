@@ -55,6 +55,13 @@
         android:orientation="horizontal"
         android:layout_marginTop="25dp">
 
+        <ImageButton
+            android:id="@+id/mLike"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.11"
+            android:text="Like" />
+
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
