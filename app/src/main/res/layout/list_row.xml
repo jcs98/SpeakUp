@@ -42,7 +42,7 @@
                 android:textColor="@color/finale"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:onClick="viewActivity"/>
+          />
 
 
             <TextView
@@ -54,33 +54,37 @@
                 android:inputType="textMultiLine"
                 android:paddingLeft="5dp"
                 android:textColor="@color/finale"
-                android:textSize="20sp"
-                android:onClick="viewActivity"/>
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvDescO"
-                    android:layout_width="100dp"
+                <Button
+                    android:id="@+id/owner_button"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.80"
-                    android:ems="10"
-                    android:hint="description comes here"
-                    android:inputType="textMultiLine"
-                    android:paddingLeft="5dp"
-                    android:textColor="@color/finale"
+                    android:background="#00ffffff"
+                    android:text="Button" />
+
+                <Button
+                    android:id="@+id/view_button"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.80"
+                    android:background="#00ffffff"
+                    android:text="View Full Story"
                     android:textSize="10sp"
-                    tools:text="Owner Comes here"
-                    android:onClick="viewActivity"/>
+                    android:textColor="@color/colorPrimaryDark"/>
 
                 <ImageButton
                     android:id="@+id/like_btn"
-                    android:layout_width="wrap_content"
+                    android:layout_width="25dp"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
+                    android:background="#00ffffff"
+                    android:scaleType="fitCenter"
                     app:srcCompat="@mipmap/ic_thumb_up_black_24dp" />
                     android:onClick="Like"/>
             </LinearLayout>

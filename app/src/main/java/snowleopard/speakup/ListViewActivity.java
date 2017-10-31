@@ -39,7 +39,7 @@ public class ListViewActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseUsers;
     private DatabaseReference mDatabaseUser;
     private static final String TAG = "MyActivity";
-    private boolean mProcessLike=false;
+
     private DatabaseReference mDatabaseLike;
     private SharedPreferences pref;
     private Context _context;
@@ -50,9 +50,13 @@ public class ListViewActivity extends AppCompatActivity {
     private Button mLogoutBtn;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static String post_key0;
+    private static String post_key1;
+
     private FirebaseAuth mAuth;
 
-    ImageButton mLikebtn;
+    private boolean mProcessLike=false;
+
+
 
     // Shared pref mode
     int PRIVATE_MODE = 0;
@@ -100,15 +104,16 @@ public class ListViewActivity extends AppCompatActivity {
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabase.keepSynced(true);
         mDatabaseUsers.keepSynced(true);
-        mAddNS = (FloatingActionButton) findViewById(R.id.floatingActionButton3);
-        mAddNS.setOnClickListener(new View.OnClickListener() {
+        mDatabaseLike.keepSynced(true);
+        // mAddNS = (FloatingActionButton) findViewById(R.id.floatingActionButton3);
+        /*mAddNS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent mainIntent = new Intent(ListViewActivity.this, AddStoryActivity.class);
 
                 startActivity(mainIntent);
             }
-        });
+        });*/
     }
 
 
@@ -168,7 +173,7 @@ public class ListViewActivity extends AppCompatActivity {
                 final String post_key = getRef(position).getKey();
                 viewHolder.setDescription(model.getDescription());
 
-               // mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getOwner());
+                // mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getOwner());
 
                 mDatabaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -186,17 +191,24 @@ public class ListViewActivity extends AppCompatActivity {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setImageUrl(getApplicationContext(),model.getImageURL());
                 viewHolder.setLikeBtn(post_key);
-                post_key0=getRef(viewHolder.getLayoutPosition()).getKey();
+                viewHolder.mViewStory.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent viewActivity = new Intent(ListViewActivity.this,ViewStoryActivity.class);
+                        viewActivity.putExtra("Key",post_key);
+                        startActivity(viewActivity);
+                    }
+                });
                 viewHolder.mLikebtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         mProcessLike = true;
-                        post_key0=getRef(viewHolder.getLayoutPosition()).getKey();
+                        post_key0 = post_key;
                         mDatabaseLike.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (mProcessLike) {
-                                    Log.i(TAG, "MyClass.getView() — get item number " + post_key);
+
                                     if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
                                         mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).removeValue();
                                         mProcessLike = false;
@@ -261,6 +273,7 @@ public class ListViewActivity extends AppCompatActivity {
     public static class cardViewHolder extends RecyclerView.ViewHolder {
         View mView;
         ImageButton mLikebtn;
+        Button mViewStory;
         DatabaseReference mDatabaseLike;
         FirebaseAuth mAuth;
 
@@ -269,7 +282,8 @@ public class ListViewActivity extends AppCompatActivity {
             super(itemView);
             mView = itemView;
             mLikebtn = (ImageButton) mView.findViewById(R.id.like_btn);
-            mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("likes");
+            mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("Likes");
+            mViewStory = (Button) mView.findViewById(R.id.view_button);
             mAuth=FirebaseAuth.getInstance();
             mDatabaseLike.keepSynced(true);
         }
@@ -284,7 +298,7 @@ public class ListViewActivity extends AppCompatActivity {
                 @Override
 
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    mLikebtn.setImageResource(R.mipmap.likegray);
+
                     if(dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
                         mLikebtn.setImageResource(R.mipmap.likegray);
 
@@ -306,8 +320,9 @@ public class ListViewActivity extends AppCompatActivity {
             post_desc.setText(description);
         }
         public void setOwner(String owner){
-            TextView post_owner = (TextView) mView.findViewById(R.id.tvDescO);
-            post_owner.setText(owner); }
+
+            Button mOwnerbtn = (Button) mView.findViewById(R.id.owner_button);
+            mOwnerbtn.setText(owner);}
 
         public void setImageUrl(Context ctx, String image){
             ImageView post_image = (ImageView) mView.findViewById(R.id.imgCard);
@@ -321,6 +336,23 @@ public class ListViewActivity extends AppCompatActivity {
         startActivity(viewActivity);
     }
 
+    public void viewProfile(View view){
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                post_key1 = dataSnapshot.child(post_key0).child("Owner").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        Intent viewActivity = new Intent(ListViewActivity.this,ProfileActivity.class);
+        viewActivity.putExtra("Key",post_key1);
+        startActivity(viewActivity);
+    }
+
 
 
 
@@ -330,11 +362,16 @@ public class ListViewActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
+            case  R.id.action_add:
+                Intent mainIntent = new Intent(ListViewActivity.this, AddStoryActivity.class);
+                startActivity(mainIntent);
+                return true;
             case R.id.action_settings:
 
-                showToast("Settings Clicked");
-
+                Intent intent = new Intent(ListViewActivity.this, ProfileActivity.class);
+                startActivity(intent);
                 return true;
+
 
             case R.id.action_logout:
 
