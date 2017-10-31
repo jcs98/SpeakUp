@@ -16,13 +16,13 @@
         android:orientation="horizontal">
 
 
-        <ImageView
+        <ImageButton
             android:id="@+id/imgCard"
             android:layout_width="84dp"
             android:layout_height="match_parent"
-            android:cropToPadding="true"
+            android:cropToPadding="false"
             android:onClick="viewActivity"
-            android:scaleType="centerCrop"
+            android:scaleType="centerInside"
             app:srcCompat="@color/cardview_light_background" />
 
 
@@ -69,16 +69,6 @@
                     android:background="#00ffffff"
                     android:text="Button" />
 
-                <Button
-                    android:id="@+id/view_button"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.80"
-                    android:background="#00ffffff"
-                    android:text="View Full Story"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="10sp" />
-
                 <ImageButton
                     android:id="@+id/like_btn"
                     android:layout_width="25dp"
@@ -89,7 +79,7 @@
 
                 <TextView
                     android:id="@+id/mNLike"
-                    android:layout_width="wrap_content"
+                    android:layout_width="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.80"
                     android:text="0" />

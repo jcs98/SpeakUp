@@ -33,6 +33,7 @@ public class ViewStoryActivity extends AppCompatActivity {
     private ImageButton mLike;
     private String key;
     private FirebaseAuth mAuth;
+    private Button mLoc;
 
     private boolean mProcessLike=false;
 
@@ -47,6 +48,7 @@ public class ViewStoryActivity extends AppCompatActivity {
         mNumLikes = (TextView) findViewById(R.id.mNLikes);
         mImage = (ImageView) findViewById(R.id.imageView);
         mLike = (ImageButton) findViewById(R.id.mLike);
+        mLoc = (Button) findViewById(R.id.mLoc);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Story");
         mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("Likes");
@@ -54,6 +56,32 @@ public class ViewStoryActivity extends AppCompatActivity {
         mDatabase.keepSynced(true);
         mDatabaseUsers.keepSynced(true);
         mDatabaseLike.keepSynced(true);
+        mLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Intent intent = new Intent(ViewStoryActivity.this,MappingActivity.class);
+                        intent.putExtra("long",dataSnapshot.child(key).child("Longitude").getValue().toString());
+                        intent.putExtra("lat",dataSnapshot.child(key).child("Latitude").getValue().toString());
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
+
+
+
+
+
+
         mLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
