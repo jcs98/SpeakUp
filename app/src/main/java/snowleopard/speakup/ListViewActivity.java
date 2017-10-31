@@ -281,6 +281,7 @@ public class ListViewActivity extends AppCompatActivity {
     public static class cardViewHolder extends RecyclerView.ViewHolder {
         View mView;
         ImageButton mLikebtn;
+        TextView mNumLikes;
         Button mViewStory;
         DatabaseReference mDatabaseLike;
         FirebaseAuth mAuth;
@@ -289,6 +290,7 @@ public class ListViewActivity extends AppCompatActivity {
         public cardViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+            mNumLikes = (TextView) mView.findViewById(R.id.mNLike);
             mLikebtn = (ImageButton) mView.findViewById(R.id.like_btn);
             mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("Likes");
             mViewStory = (Button) mView.findViewById(R.id.view_button);
@@ -306,6 +308,8 @@ public class ListViewActivity extends AppCompatActivity {
                 @Override
 
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.child(post_key).hasChild("NumberOfLikes")){
+                    mNumLikes.setText(dataSnapshot.child(post_key).child("NumberOfLikes").getValue().toString());}
 
                     if(dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
                         mLikebtn.setImageResource(R.mipmap.likegray);

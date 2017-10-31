@@ -27,7 +27,7 @@ public class ViewStoryActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseLike;
     private DatabaseReference mDatabase;
 
-
+    private TextView mNumLikes;
     private ImageView mImage;
     private DatabaseReference mStory;
     private ImageButton mLike;
@@ -44,7 +44,7 @@ public class ViewStoryActivity extends AppCompatActivity {
         mStory = FirebaseDatabase.getInstance().getReference("Story").child(key);
         mTitle = (TextView) findViewById(R.id.titleView);
         mDescription = (TextView) findViewById(R.id.descView);
-
+        mNumLikes = (TextView) findViewById(R.id.mNLikes);
         mImage = (ImageView) findViewById(R.id.imageView);
         mLike = (ImageButton) findViewById(R.id.mLike);
         mAuth = FirebaseAuth.getInstance();
@@ -95,6 +95,8 @@ public class ViewStoryActivity extends AppCompatActivity {
         mDatabaseLike.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(key).hasChild("NumberOfLikes")){
+                    mNumLikes.setText(dataSnapshot.child(key).child("NumberOfLikes").getValue().toString());}
 
                 if(dataSnapshot.child(key).hasChild(mAuth.getCurrentUser().getUid())){
                     mLike.setImageResource(R.mipmap.likegray);

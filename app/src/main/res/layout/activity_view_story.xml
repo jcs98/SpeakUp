@@ -65,6 +65,15 @@
             app:srcCompat="@mipmap/ic_thumb_up_black_24dp" />
         android:onClick="Like"/>
 
+        <TextView
+            android:id="@+id/mNLikes"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:cursorVisible="false"
+            android:inputType="textMultiLine"
+            android:text="999" />
+
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
