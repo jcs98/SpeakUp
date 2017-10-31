@@ -29,13 +29,25 @@
             android:textAlignment="center"
             android:textSize="36sp" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="300dp"
+            android:background="@color/colorCards"
+            tools:context="snowleopard.speakup.ListViewActivity">
 
-        </LinearLayout>
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true">
+
+
+            </android.support.v7.widget.RecyclerView>
+
+
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>
