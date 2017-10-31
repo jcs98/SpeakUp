@@ -297,7 +297,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Toast.makeText(this, "Location added to story...",
+        Toast.makeText(this, "Location added to story!",
                 Toast.LENGTH_SHORT).show();
 
         LatLng ll = marker.getPosition();

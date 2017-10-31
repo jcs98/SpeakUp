@@ -59,6 +59,10 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
     public static final int REQUEST_LOCATION_CODE = 99;
     private Address myAddress;
     private DatabaseReference mLoc;
+    private DatabaseReference mTitle;
+    private String show_title;
+
+    private String Id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,8 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
                 .findFragmentById(R.id.mapping);
         mapFragment.getMapAsync(this);
         mLoc = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Story");
+        mTitle = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Story");
+
     }
 
 
@@ -131,7 +137,7 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
                 }
 
                 @Override
-                public View getInfoContents(Marker marker) {
+                public View getInfoContents(final Marker marker) {
 
                     View v =getLayoutInflater().inflate(R.layout.info_window, null);
 
@@ -140,8 +146,20 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
                     TextView tvlng = (TextView) v.findViewById(R.id.tv_lng);
                     TextView tvsnippet = (TextView) v.findViewById(R.id.tv_snippet);
 
+
                     LatLng ll = marker.getPosition();
-                    tvlocality.setText(marker.getTitle());
+                    mTitle.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            show_title = dataSnapshot.child(marker.getTitle()).child("Title").getValue().toString();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    tvlocality.setText(show_title);
                     tvlat.setText("Latitude: " + ll.latitude);
                     tvlng.setText("Longitude: " + ll.longitude);
                     tvsnippet.setText(marker.getSnippet());
@@ -157,16 +175,17 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        Id = snapshot.getKey().toString();
+
                         double Lat = Double.parseDouble(snapshot.child("Latitude").getValue().toString());
                         double Long = Double.parseDouble(snapshot.child("Longitude").getValue().toString());
                         String Title = snapshot.child("Title").getValue().toString();
-                        
 
                         LatLng latLng = new LatLng(Lat, Long);
 
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(latLng);
-                        markerOptions.title(Title);
+                        markerOptions.title(Id);
                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
 
                         mMap.addMarker(markerOptions);
@@ -208,20 +227,10 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Toast.makeText(this, "Opening story...",
-                Toast.LENGTH_SHORT).show();
 
-        LatLng ll = marker.getPosition();
-
-        String lat = Double.toString(ll.latitude);
-        String lng = Double.toString(ll.longitude);
-
-        Intent intent = new Intent(MappingActivity.this, ViewStoryActivity.class);
-
-        intent.putExtra("lat", lat);
-        intent.putExtra("lng", lng);
-
-        startActivity(intent);
+        Intent viewActivity = new Intent(MappingActivity.this,ViewStoryActivity.class);
+        viewActivity.putExtra("Key",marker.getTitle());
+        startActivity(viewActivity);
 
     }
 
@@ -300,6 +309,8 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
 
 
 
