@@ -4,6 +4,7 @@ package snowleopard.speakup;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Icon;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -173,7 +174,7 @@ public class ListViewActivity extends AppCompatActivity {
                 final String post_key = getRef(position).getKey();
                 viewHolder.setDescription(model.getDescription());
 
-                // mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getOwner());
+               // mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getOwner());
 
                 mDatabaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

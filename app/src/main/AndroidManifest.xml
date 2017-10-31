@@ -32,7 +32,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         //android:name="speak"
-        <activity android:name=".ListViewActivity">
+        <activity android:name=".ActivityLauncher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,6 +59,7 @@
         <activity android:name=".MapActivity" />
         <activity android:name=".AddStoryActivity" />
         <activity android:name=".ViewStoryActivity" />
+        <activity android:name=".ListViewActivity"/>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MapViewActivity" />
         <activity android:name=".MappingActivity" />

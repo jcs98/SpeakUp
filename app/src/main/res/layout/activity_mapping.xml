@@ -22,22 +22,25 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Map View"
             android:id="@+id/viewMap"
-            android:onClick="openMapView"
-            android:clickable="false"
-            android:textColor="#A9A9A9"/>
-        <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="List View"
+            android:background="#ffd600"
+            android:clickable="false"
+            android:onClick="openMapView"
+            android:text="Map View"
+            android:textColor="#A9A9A9" />
+
+        <Button
             android:id="@+id/viewList"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ffd600"
+            android:clickable="true"
             android:onClick="openListView"
-            android:clickable="true"/>
+            android:text="List View" />
 
 
     </LinearLayout>

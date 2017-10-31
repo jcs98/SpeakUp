@@ -79,20 +79,20 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_weight="0.11"
-            android:background="@color/colorPrimary"
+            android:background="#ffd600"
             android:text="Report"
             android:textAllCaps="true"
-            android:textColor="@color/colorG" />
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/mLoc"
             android:layout_width="130dp"
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
-            android:background="@color/colorPrimary"
+            android:background="#ffd600"
             android:text="View location"
             android:textAllCaps="true"
-            android:textColor="@color/colorG" />
+            android:textColor="#000000" />
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -100,6 +100,7 @@
             android:layout_height="42dp"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
+            android:backgroundTint="#ffd600"
             android:text="Solved"
             tools:layout_editor_absoluteX="288dp"
             tools:layout_editor_absoluteY="456dp" />
