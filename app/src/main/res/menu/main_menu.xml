@@ -5,14 +5,10 @@
         android:icon="@mipmap/ic_add_white_24dp"
         android:title="Add Transaction"
         app:showAsAction="always"/>
+    <item android:title="View My Profile"
+        android:id="@+id/action_settings"
+        app:showAsAction="never"/>
     <item android:title="Logout"
         android:id="@+id/action_logout"
         app:showAsAction="never"/>
-    <item android:title="View My Profile"
-        app:showAsAction="never"/>
-    <item android:title="Settings"
-        android:id="@+id/action_settings"
-        app:showAsAction="never"/>
-
-
 </menu>

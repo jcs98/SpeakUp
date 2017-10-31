@@ -13,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +35,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,6 +64,8 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
     private DatabaseReference mLoc;
     private DatabaseReference mTitle;
     private String show_title;
+    private FirebaseAuth mAuth;
+
 
     static private String Id;
 
@@ -78,6 +83,7 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
                 .findFragmentById(R.id.mapping);
         mapFragment.getMapAsync(this);
         mLoc = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Story");
+        mAuth = FirebaseAuth.getInstance();
         mTitle = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Story");
 
     }
@@ -291,6 +297,44 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case  R.id.action_add:
+                Intent mainIntent = new Intent(MappingActivity.this, AddStoryActivity.class);
+                startActivity(mainIntent);
+                return true;
+            case R.id.action_settings:
+                Intent intent = new Intent(MappingActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                return true;
+
+
+            case R.id.action_logout:
+
+//                Intent intent = new Intent(ListViewActivity.this, MainActivity.class);
+                mAuth.signOut();
+//                startActivity(intent);
+//                finish();
+                return true;
+
+
+            default:
+
+                return super.onOptionsItemSelected(item);
+
+        }
 
     }
 

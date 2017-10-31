@@ -380,7 +380,6 @@ public class ListViewActivity extends AppCompatActivity {
                 startActivity(mainIntent);
                 return true;
             case R.id.action_settings:
-
                 Intent intent = new Intent(ListViewActivity.this, ProfileActivity.class);
                 startActivity(intent);
                 return true;
@@ -402,6 +401,7 @@ public class ListViewActivity extends AppCompatActivity {
         }
 
     }
+
 
     public void showToast(String message)
 
