@@ -124,13 +124,13 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
                     TextView tvlocality = (TextView) v.findViewById(R.id.tv_locality);
                     TextView tvlat = (TextView) v.findViewById(R.id.tv_lat);
                     TextView tvlng = (TextView) v.findViewById(R.id.tv_lng);
-                    TextView tvsnippet = (TextView) v.findViewById(R.id.tv_snippet);
+//                    TextView tvsnippet = (TextView) v.findViewById(R.id.tv_snippet);
 
                     LatLng ll = marker.getPosition();
                     tvlocality.setText(marker.getTitle());
                     tvlat.setText("Latitude: " + ll.latitude);
                     tvlng.setText("Longitude: " + ll.longitude);
-                    tvsnippet.setText(marker.getSnippet());
+//                    tvsnippet.setText(marker.getSnippet());
 
 
                     return v;

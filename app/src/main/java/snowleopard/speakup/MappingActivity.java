@@ -62,7 +62,7 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
     private DatabaseReference mTitle;
     private String show_title;
 
-    private String Id;
+    static private String Id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,25 +144,27 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
                     TextView tvlocality = (TextView) v.findViewById(R.id.tv_locality);
                     TextView tvlat = (TextView) v.findViewById(R.id.tv_lat);
                     TextView tvlng = (TextView) v.findViewById(R.id.tv_lng);
-                    TextView tvsnippet = (TextView) v.findViewById(R.id.tv_snippet);
+//                    TextView tvsnippet = (TextView) v.findViewById(R.id.tv_snippet);
 
 
                     LatLng ll = marker.getPosition();
-                    mTitle.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            show_title = dataSnapshot.child(marker.getTitle()).child("Title").getValue().toString();
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+//                    mTitle.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            show_title = dataSnapshot.child(marker.getTitle()).child("Title").getValue().toString();
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
 
-                        }
-                    });
-                    tvlocality.setText(show_title);
+                    tvlocality.setText(marker.getTitle());
                     tvlat.setText("Latitude: " + ll.latitude);
                     tvlng.setText("Longitude: " + ll.longitude);
-                    tvsnippet.setText(marker.getSnippet());
+//                    tvsnippet.setText(marker.getSnippet());
 
 
                     return v;
@@ -185,7 +187,8 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
 
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(latLng);
-                        markerOptions.title(Id);
+                        markerOptions.title(Title);
+                        markerOptions.snippet(Id);
                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
 
                         mMap.addMarker(markerOptions);
@@ -201,25 +204,6 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
             });
 
 
-
-            for(int i = 0; i<1; i++ ){
-
-
-
-
-            }
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
     }
@@ -229,7 +213,7 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
     public void onInfoWindowClick(Marker marker) {
 
         Intent viewActivity = new Intent(MappingActivity.this,ViewStoryActivity.class);
-        viewActivity.putExtra("Key",marker.getTitle());
+        viewActivity.putExtra("Key",marker.getSnippet());
         startActivity(viewActivity);
 
     }
