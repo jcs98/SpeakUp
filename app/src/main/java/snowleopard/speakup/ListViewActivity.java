@@ -121,6 +121,8 @@ public class ListViewActivity extends AppCompatActivity {
     public void openMapView(View view){
 
         Intent intent = new Intent(ListViewActivity.this, MappingActivity.class);
+        intent.putExtra("long", "18.965");
+        intent.putExtra("lat", "78.811");
         startActivity(intent);
         finish();
     }

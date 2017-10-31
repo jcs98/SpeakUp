@@ -31,6 +31,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -65,6 +66,9 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
     private DatabaseReference mTitle;
     private String show_title;
     private FirebaseAuth mAuth;
+    private Double passedLat;
+    private Double passedLng;
+
 
 
     static private String Id;
@@ -85,6 +89,9 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
         mLoc = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Story");
         mAuth = FirebaseAuth.getInstance();
         mTitle = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Story");
+
+        passedLat = Double.parseDouble(getIntent().getStringExtra("lat"));
+        passedLng = Double.parseDouble(getIntent().getStringExtra("long"));
 
     }
 
@@ -195,9 +202,29 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
                         markerOptions.position(latLng);
                         markerOptions.title(Title);
                         markerOptions.snippet(Id);
-                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+
+                        if(passedLat == Lat && passedLng == Long) {
+                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                        }
+
+                        else {
+                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+                        }
 
                         mMap.addMarker(markerOptions);
+
+                        if(passedLat == Lat && passedLng == Long) {
+//                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 21));
+//                            mMap.animateCamera(CameraUpdateFactory.zoomIn());
+//                            mMap.animateCamera(CameraUpdateFactory.zoomTo(21), 2000, null);
+
+                            //Build camera position
+                            CameraPosition cameraPosition = new CameraPosition.Builder()
+                                    .target(latLng)
+                                    .zoom(21).build();
+                            //Zoom in and animate the camera.
+                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                        }
 
 
                     }
@@ -210,6 +237,13 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
             });
 
 
+//            if(passedLat != null) {
+//                LatLng passedlatLng = new LatLng(passedLat, passedLng);
+//
+//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(passedlatLng, 20));
+//            }
+
+//            Toast.makeText(getApplicationContext(),passedLat.toString(), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -221,6 +255,7 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
         Intent viewActivity = new Intent(MappingActivity.this,ViewStoryActivity.class);
         viewActivity.putExtra("Key",marker.getSnippet());
         startActivity(viewActivity);
+        finish();
 
     }
 
@@ -248,7 +283,7 @@ public class MappingActivity extends FragmentActivity implements OnMapReadyCallb
         markerOptions.title("Current Location");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
 
-        currentLocationMarker = mMap.addMarker(markerOptions);
+//        currentLocationMarker = mMap.addMarker(markerOptions);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
 //        mMap.animateCamera(CameraUpdateFactory.zoomBy(10));
