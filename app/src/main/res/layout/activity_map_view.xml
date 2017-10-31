@@ -25,9 +25,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="19dp"
+        android:background="@color/colorButtons"
+        android:shadowColor="@color/cardview_shadow_end_color"
+        android:shadowDx="20"
         android:onClick="geoLocate"
         android:text="GO"
-        android:textColor="#123456"
+        android:textColor="#000000"
         android:textStyle="bold"
         tools:textStyle="bold" />
 

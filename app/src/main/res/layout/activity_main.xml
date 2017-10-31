@@ -7,9 +7,9 @@
     android:layout_height="match_parent"
     tools:context="snowleopard.speakup.MainActivity"
     android:orientation="vertical"
-    android:background="@color/colorCards">
+    android:background="#ffffd1">
 
-    <!--<TextView-->
+    <!--<TextView#eeffc0-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:text="Hey there,"-->
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="E-mail ID:"
-        android:textColor="@color/finale"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:paddingLeft="16dp"/>
 
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Password:"
-        android:textColor="@color/finale"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:paddingLeft="16dp"/>
 
@@ -72,7 +72,9 @@
             android:layout_weight="1"
             android:id="@+id/loginButton"
             android:background="@color/colorButtons"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:shadowColor="@color/cardview_shadow_end_color"
+            android:shadowDx="20"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -81,7 +83,9 @@
             android:layout_weight="1"
             android:id="@+id/registerButton"
             android:background="@color/colorButtons"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:shadowColor="@color/cardview_shadow_end_color"
+            android:shadowDx="20"/>
 
 
     </LinearLayout>

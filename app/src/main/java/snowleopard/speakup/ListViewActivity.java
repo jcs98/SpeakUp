@@ -4,6 +4,7 @@ package snowleopard.speakup;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Icon;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -173,7 +174,7 @@ public class ListViewActivity extends AppCompatActivity {
                 final String post_key = getRef(position).getKey();
                 viewHolder.setDescription(model.getDescription());
 
-                // mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getOwner());
+               // mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(model.getOwner());
 
                 mDatabaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -282,7 +283,7 @@ public class ListViewActivity extends AppCompatActivity {
         View mView;
         ImageButton mLikebtn;
         TextView mNumLikes;
-        Button mViewStory;
+        ImageButton  mViewStory;
         DatabaseReference mDatabaseLike;
         FirebaseAuth mAuth;
 
@@ -293,7 +294,7 @@ public class ListViewActivity extends AppCompatActivity {
             mNumLikes = (TextView) mView.findViewById(R.id.mNLike);
             mLikebtn = (ImageButton) mView.findViewById(R.id.like_btn);
             mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("Likes");
-            mViewStory = (Button) mView.findViewById(R.id.view_button);
+            mViewStory = (ImageButton) mView.findViewById(R.id.imgCard);
             mAuth=FirebaseAuth.getInstance();
             mDatabaseLike.keepSynced(true);
         }
@@ -337,7 +338,7 @@ public class ListViewActivity extends AppCompatActivity {
             mOwnerbtn.setText(owner);}
 
         public void setImageUrl(Context ctx, String image){
-            ImageView post_image = (ImageView) mView.findViewById(R.id.imgCard);
+            ImageButton post_image = (ImageButton) mView.findViewById(R.id.imgCard);
             Picasso.with(ctx).load(image).into(post_image);
 
         }
@@ -379,7 +380,6 @@ public class ListViewActivity extends AppCompatActivity {
                 startActivity(mainIntent);
                 return true;
             case R.id.action_settings:
-
                 Intent intent = new Intent(ListViewActivity.this, ProfileActivity.class);
                 startActivity(intent);
                 return true;
@@ -401,6 +401,7 @@ public class ListViewActivity extends AppCompatActivity {
         }
 
     }
+
 
     public void showToast(String message)
 

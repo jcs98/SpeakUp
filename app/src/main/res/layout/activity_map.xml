@@ -16,13 +16,17 @@
             android:layout_weight="1"
             android:hint="Where's your story at?"
             android:id="@+id/TF_location"/>
+
         <Button
+            android:id="@+id/Go_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0"
+            android:background="#ffd600"
+            android:onClick="searchLocation"
             android:text="Go"
-            android:id="@+id/Go_btn"
-            android:onClick="searchLocation"/>
+            android:shadowColor="@color/cardview_shadow_end_color"
+            android:shadowDx="20"/>
 
 
     </LinearLayout>

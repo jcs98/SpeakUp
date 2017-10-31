@@ -60,7 +60,7 @@ tools:context="snowleopard.speakup.ListViewActivity">
                     android:layout_width="120dp"
                     android:layout_height="30dp"
                     android:text="Latitude: "
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tv_lat"
@@ -69,7 +69,7 @@ tools:context="snowleopard.speakup.ListViewActivity">
                     android:ems="10"
                     android:hint="Latitude"
                     android:inputType="textPersonName"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -80,7 +80,7 @@ tools:context="snowleopard.speakup.ListViewActivity">
                     android:layout_width="120dp"
                     android:layout_height="30dp"
                     android:text="Longitude: "
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tv_lng"
@@ -89,7 +89,7 @@ tools:context="snowleopard.speakup.ListViewActivity">
                     android:ems="10"
                     android:hint="Longitude"
                     android:inputType="textPersonName"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -112,5 +112,7 @@ tools:context="snowleopard.speakup.ListViewActivity">
         android:layout_height="wrap_content"
         android:text="SUBMIT"
         android:background="@color/colorButtons"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:shadowDx="20"
+        android:shadowColor="@color/cardview_shadow_end_color"/>
 </LinearLayout>
