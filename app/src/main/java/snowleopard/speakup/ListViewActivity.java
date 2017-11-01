@@ -182,7 +182,7 @@ public class ListViewActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         DataSnapshot owners =(dataSnapshot.child(model.getOwner()).child("name"));
-                        viewHolder.setOwner(owners.getValue().toString());
+                        viewHolder.setOwner("Owner:"+owners.getValue().toString());
                     }
 
                     @Override

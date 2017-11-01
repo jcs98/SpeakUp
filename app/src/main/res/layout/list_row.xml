@@ -20,16 +20,13 @@
             android:id="@+id/imgCard"
             android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:cropToPadding="true"
-            android:scaleType="centerCrop"
             android:layout_marginRight="0dp"
-            app:srcCompat="@color/cardview_light_background"
-            android:onClick="viewActivity"/>
-            android:layout_width="84dp"
-            android:layout_height="match_parent"
-            android:cropToPadding="false"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="@color/colorButtons"
+            android:cropToPadding="true"
             android:onClick="viewActivity"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
+            android:padding="@dimen/cardview_compat_inset_shadow"
             app:srcCompat="@color/cardview_light_background" />
 
 
@@ -76,13 +73,13 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.80"
+                    android:background="#00ffffff"
                     android:ems="10"
                     android:hint="description comes here"
                     android:inputType="textMultiLine"
                     android:paddingLeft="5dp"
-                    android:textColor="#000000"
-                    android:background="#00ffffff"
-                    android:text="Button" />
+                    android:text="Owner:"
+                    android:textColor="#000000" />
 
                 <ImageButton
                     android:id="@+id/like_btn"
@@ -99,7 +96,8 @@
                     android:layout_width="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.80"
-                    android:text="0" />
+                    android:textSize="18sp"
+                    android:text=" 0" />
                 android:onClick="Like"/>
             </LinearLayout>
 
