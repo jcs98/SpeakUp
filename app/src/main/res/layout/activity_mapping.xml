@@ -41,7 +41,8 @@
             android:clickable="false"
             android:onClick="openMapView"
             android:text="Map View"
-            android:textColor="#A9A9A9" />
+            android:textColor="#A9A9A9"
+            android:backgroundTint="@color/colorPrimary"/>
 
         <Button
             android:id="@+id/viewList"
@@ -51,7 +52,9 @@
             android:clickable="true"
             android:background="#ffd600"
             android:onClick="openListView"
-            android:text="List View" />
+            android:text="List View"
+            android:textColor="#ffffff"
+            android:backgroundTint="@color/colorPrimary"/>
 
 
     </LinearLayout>

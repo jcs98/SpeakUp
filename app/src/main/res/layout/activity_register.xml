@@ -7,14 +7,15 @@
     android:layout_height="match_parent"
     tools:context="snowleopard.speakup.MainActivity"
     android:orientation="vertical"
-    android:background="@color/colorCards">
+    android:background="#ffffd1">
 
 
 <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome to SpeakUp!"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
+    android:textStyle="bold"
         android:textSize="32sp"
         android:padding="16dp"
         android:layout_gravity="center"/>
@@ -28,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name:"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:paddingLeft="16dp"/>
 
@@ -45,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="E-mail ID:"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:paddingLeft="16dp"/>
 
@@ -62,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Password:"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:paddingLeft="16dp"/>
 
@@ -86,7 +87,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Register"
+            android:textStyle="bold"
             android:layout_weight="1"
+            android:textSize="15sp"
             android:id="@+id/registerBtn"
             android:background="@color/colorButtons"/>
 

@@ -25,6 +25,8 @@
             android:background="#ffd600"
             android:onClick="searchLocation"
             android:text="Go"
+            android:textColor="#000000"
+            android:textStyle="bold"
             android:shadowColor="@color/cardview_shadow_end_color"
             android:shadowDx="20"/>
 
@@ -39,6 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         tools:context="com.example.android.mapdemo.MapsActivity" />
 
 </LinearLayout>
