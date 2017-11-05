@@ -20,16 +20,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            tools:context="com.example.android.mapdemo.MapsActivity" />
+            tools:context="com.example.android.mapdemo.MapsActivity"
+            android:layout_alignParentBottom="true" />
 
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:layout_weight="0"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
         android:orientation="horizontal">
 
         <Button
