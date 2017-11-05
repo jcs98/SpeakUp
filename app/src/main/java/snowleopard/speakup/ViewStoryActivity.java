@@ -127,11 +127,11 @@ public class ViewStoryActivity extends AppCompatActivity {
                     mNumLikes.setText(dataSnapshot.child(key).child("NumberOfLikes").getValue().toString());}
 
                 if(dataSnapshot.child(key).hasChild(mAuth.getCurrentUser().getUid())){
-                    mLike.setImageResource(R.mipmap.likegray);
+                    mLike.setImageResource(R.drawable.liked);
 
                 }
                 else{
-                    mLike.setImageResource(R.mipmap.likeblack);
+                    mLike.setImageResource(R.drawable.unliked);
                 }
             }
 

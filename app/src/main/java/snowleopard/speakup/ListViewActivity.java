@@ -315,11 +315,11 @@ public class ListViewActivity extends AppCompatActivity {
                     mNumLikes.setText(dataSnapshot.child(post_key).child("NumberOfLikes").getValue().toString());}
 
                     if(dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
-                        mLikebtn.setImageResource(R.mipmap.likegray);
+                        mLikebtn.setImageResource(R.drawable.liked);
 
                     }
                     else{
-                        mLikebtn.setImageResource(R.mipmap.likeblack);
+                        mLikebtn.setImageResource(R.drawable.unliked);
                     }
                 }
 
