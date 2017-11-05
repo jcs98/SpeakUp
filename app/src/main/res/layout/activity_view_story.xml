@@ -7,7 +7,7 @@
     android:layout_marginLeft="0dp"
     android:orientation="vertical"
     tools:context="snowleopard.speakup.ViewStoryActivity"
-    android:background="#f0ffff">
+    android:background="#d1c4e9">
 
     <ImageView
         android:id="@+id/imageView"

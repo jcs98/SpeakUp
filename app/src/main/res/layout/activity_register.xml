@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="snowleopard.speakup.MainActivity"
     android:orientation="vertical"
-    android:background="#f0ffff">
+    android:background="#d1c4e9">
 
 
 <TextView

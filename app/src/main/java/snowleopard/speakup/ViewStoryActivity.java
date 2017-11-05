@@ -129,7 +129,7 @@ public class ViewStoryActivity extends AppCompatActivity {
                     mNumLikes.setText(dataSnapshot.child(key).child("NumberOfLikes").getValue().toString());}
 
                 if(dataSnapshot.child(key).hasChild(mAuth.getCurrentUser().getUid())){
-                    mLike.setImageResource(R.drawable.liked);
+                    mLike.setImageResource(R.drawable.likedfi);
 
                 }
                 else{
