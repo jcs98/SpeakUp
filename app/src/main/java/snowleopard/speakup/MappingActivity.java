@@ -52,7 +52,7 @@ import java.util.List;
  * Created by jcsha on 28-10-2017.
  */
 
-public class MappingActivity extends FragmentActivity implements OnMapReadyCallback,
+public class MappingActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener, GoogleMap.OnInfoWindowClickListener{
 

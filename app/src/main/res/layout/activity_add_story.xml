@@ -8,6 +8,17 @@
     android:background="@color/colorCards"
 tools:context="snowleopard.speakup.ListViewActivity">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="ADD IMAGE"
+        android:layout_marginTop="0dp"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
     <ImageButton
         android:id="@+id/btImg"
         android:layout_width="match_parent"
@@ -90,6 +101,7 @@ tools:context="snowleopard.speakup.ListViewActivity">
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:ems="10"
+                    android:textColor="#000000"
                     android:hint="Longitude"
                     android:inputType="textPersonName"
                     android:textSize="20sp" />

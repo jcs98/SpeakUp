@@ -45,7 +45,7 @@
                 android:hint="Title goes here"
                 android:inputType="textPersonName"
                 android:paddingLeft="2dp"
-                android:textColor="#000000"
+                android:textColor="@color/colorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:onClick="viewActivity"/>
@@ -56,7 +56,7 @@
                 android:layout_width="330dp"
                 android:layout_height="30dp"
                 android:ems="10"
-                android:hint="description comes here"
+                android:hint="Description comes here"
                 android:inputType="textMultiLine"
                 android:paddingLeft="2dp"
                 android:textColor="#000000"
@@ -75,6 +75,7 @@
                     android:layout_weight="0.80"
                     android:background="#00ffffff"
                     android:ems="10"
+                    android:textSize="10sp"
                     android:hint="description comes here"
                     android:inputType="textMultiLine"
                     android:paddingLeft="5dp"
@@ -89,8 +90,8 @@
                     android:scaleType="centerCrop"
                     android:layout_marginBottom="0dp"
                     android:background="#ffd600"
-                    app:srcCompat="@mipmap/ic_thumb_up_black_24dp"
-                    android:backgroundTint="@color/colorButtons"/>
+                    android:layout_marginLeft="40dp"
+                    app:srcCompat="@mipmap/ic_thumb_up_black_24dp"/>
 
                 <TextView
                     android:id="@+id/mNLike"

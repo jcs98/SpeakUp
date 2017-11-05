@@ -1,64 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="snowleopard.speakup.MainActivity"
+    android:background="#f0ffff"
     android:orientation="vertical"
-    android:background="#ffffd1">
+    tools:context="snowleopard.speakup.MainActivity">
 
     <!--<TextView#eeffc0-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Hey there,"-->
-        <!--android:textColor="@color/finale"-->
-        <!--android:textSize="32sp"-->
-        <!--android:padding="16dp"-->
-        <!--android:layout_gravity="center"/>-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Hey there,"-->
+    <!--android:textColor="@color/finale"-->
+    <!--android:textSize="32sp"-->
+    <!--android:padding="16dp"-->
+    <!--android:layout_gravity="center"/>-->
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:src="@drawable/app_name"
-        android:padding="20dp"/>
+        android:padding="20dp"
+        android:src="@drawable/app_name" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
         android:text="E-mail ID:"
         android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
-        android:paddingLeft="16dp"/>
+        android:textSize="24sp" />
 
     <EditText
+        android:id="@+id/loginEmailField"
         android:layout_width="318dp"
         android:layout_height="wrap_content"
-        android:hint="xyz@example.com"
-        android:textSize="20sp"
-        android:padding="10dp"
         android:layout_marginLeft="16dp"
-        android:id="@+id/loginEmailField"/>
+        android:hint="xyz@example.com"
+        android:padding="10dp"
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
         android:text="Password:"
         android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
-        android:paddingLeft="16dp"/>
+        android:textSize="24sp" />
 
     <EditText
+        android:id="@+id/loginpasswordField"
         android:layout_width="324dp"
         android:layout_height="wrap_content"
-        android:hint="(Min. 6 characters)"
-        android:textSize="20sp"
-        android:padding="10dp"
-        android:ems="10"
-        android:inputType="textPassword"
         android:layout_marginLeft="16dp"
-        android:id="@+id/loginpasswordField"/>
+        android:ems="10"
+        android:hint="(Min. 6 characters)"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textSize="20sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,26 +67,26 @@
         android:padding="16dp">
 
         <Button
+            android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:layout_weight="1"
-            android:id="@+id/loginButton"
-            android:background="@color/colorButtons"
             android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@color/colorButtons"
             android:shadowColor="@color/cardview_shadow_end_color"
-            android:shadowDx="20"/>
+            android:shadowDx="20"
+            android:text="Login" />
 
         <Button
+            android:id="@+id/registerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Need a new account?"
-            android:layout_weight="1"
-            android:id="@+id/registerButton"
-            android:background="@color/colorButtons"
             android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@color/colorButtons"
             android:shadowColor="@color/cardview_shadow_end_color"
-            android:shadowDx="20"/>
+            android:shadowDx="20"
+            android:text="Need a new account?" />
 
 
     </LinearLayout>
