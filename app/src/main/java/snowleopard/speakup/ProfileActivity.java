@@ -3,6 +3,7 @@ package snowleopard.speakup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -32,14 +37,22 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference mDatabase1;
     private Query mQuery;
 
+    private ImageButton mDP;
+    private Uri mImgU = null;
+
+
     private FirebaseUser mUser;
     private RecyclerView mList;
     private DatabaseReference mDatabaseUsers;
+    private StorageReference mStorage;
+
 
 
 
 
     private TextView mWelcome;
+    public static final int GALLERY_REQUEST = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +63,10 @@ public class ProfileActivity extends AppCompatActivity {
         //mList.hasFixedSize(true);
         mList.setLayoutManager(new LinearLayoutManager(this));
         mUser = mAuth.getCurrentUser();
+        mDP = (ImageButton) findViewById(R.id.mDP);
 
         mDatabase1 = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+        mStorage  = FirebaseStorage.getInstance().getReference().child("ProfilePictures");
 
         mWelcome=   (TextView) findViewById(R.id.tvWelcome);
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -64,11 +79,24 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 mWelcome.setText("Welcome  "+dataSnapshot.child("name").getValue().toString());
+                if(dataSnapshot.child("image").getValue().toString() != "default") {
+                    Picasso.with(getApplicationContext()).load(dataSnapshot.child("image").getValue().toString()).into(mDP);
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 showToast("Database Error");
+            }
+        });
+        mDP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent,GALLERY_REQUEST);
+
+
             }
         });
 
@@ -238,6 +266,30 @@ public class ProfileActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == GALLERY_REQUEST && resultCode == RESULT_OK)
+        {
+            mImgU = data.getData();
+            mDP.setImageURI(mImgU);
+            StorageReference filepath = mStorage.child(mImgU.getLastPathSegment());
+            filepath.putFile(mImgU).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    final Uri DownloadUrl = taskSnapshot.getDownloadUrl();
+                    mDatabase1.child("image").setValue(DownloadUrl.toString().trim());
+
+
+
+                }
+            });
+        }
+
+
 
     }
 

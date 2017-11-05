@@ -14,17 +14,17 @@
         android:orientation="vertical">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/mDP"
             android:layout_width="176dp"
             android:layout_height="173dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="99dp"
             android:layout_marginRight="90dp"
-            android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:padding="@dimen/cardview_compat_inset_shadow"
             android:background="@drawable/round_view"
-            android:scaleType="centerCrop"
-            />
+            android:cropToPadding="true"
+            android:padding="@dimen/cardview_compat_inset_shadow"
+            android:scaleType="centerInside" />
 
         <TextView
             android:id="@+id/tvWelcome"
