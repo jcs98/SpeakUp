@@ -50,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
         //mList.hasFixedSize(true);
         mList.setLayoutManager(new LinearLayoutManager(this));
         mUser = mAuth.getCurrentUser();
+
         mDatabase1 = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
         mWelcome=   (TextView) findViewById(R.id.tvWelcome);
@@ -123,7 +124,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setImageUrl(getApplicationContext(), model.getImageURL());
-                //viewHolder.setLikeBtn(post_key);
+                viewHolder.setLikeBtn(post_key);
                 viewHolder.mViewStory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -173,13 +174,13 @@ public class ProfileActivity extends AppCompatActivity {
                     if(dataSnapshot.child(post_key).hasChild("NumberOfLikes")){
                         mNumLikes.setText(dataSnapshot.child(post_key).child("NumberOfLikes").getValue().toString());}
 
-                    if(dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
+                    /*if(dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
                         mLikebtn.setImageResource(R.mipmap.likegray);
 
                     }
                     else{
                         mLikebtn.setImageResource(R.mipmap.likeblack);
-                    }
+                    }*/
                 }
 
                 @Override

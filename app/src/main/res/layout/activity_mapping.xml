@@ -39,7 +39,6 @@
             android:layout_weight="1"
             android:background="#ffd600"
             android:clickable="false"
-            android:onClick="openMapView"
             android:text="Map View"
             android:textColor="#A9A9A9"
             android:backgroundTint="@color/colorPrimary"/>

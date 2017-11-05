@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 public class ViewStoryActivity extends AppCompatActivity {
@@ -144,11 +146,21 @@ public class ViewStoryActivity extends AppCompatActivity {
 
         mStory.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
                 mTitle.setText(dataSnapshot.child("Title").getValue().toString());
                 mDescription.setText(dataSnapshot.child("Description").getValue().toString());
-                Picasso.with(getApplicationContext()).load(dataSnapshot.child("ImageUrl").getValue().toString()).into(mImage);
+                Picasso.with(getApplicationContext()).load(dataSnapshot.child("ImageUrl").getValue().toString()).networkPolicy(NetworkPolicy.OFFLINE).into(mImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
 
+                    }
+
+                    @Override
+                    public void onError() {
+                        Picasso.with(getApplicationContext()).load(dataSnapshot.child("ImageUrl").getValue().toString()).into(mImage);
+
+                    }
+                });
             }
 
             @Override

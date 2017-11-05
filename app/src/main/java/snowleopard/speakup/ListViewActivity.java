@@ -29,7 +29,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 public class ListViewActivity extends AppCompatActivity {
@@ -78,6 +82,7 @@ public class ListViewActivity extends AppCompatActivity {
         mList.setLayoutManager(new LinearLayoutManager(this));
         mAuth = FirebaseAuth.getInstance();
 
+
         mAuthListener = new FirebaseAuth.AuthStateListener(){
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
@@ -106,6 +111,7 @@ public class ListViewActivity extends AppCompatActivity {
         mDatabase.keepSynced(true);
         mDatabaseUsers.keepSynced(true);
         mDatabaseLike.keepSynced(true);
+
         // mAddNS = (FloatingActionButton) findViewById(R.id.floatingActionButton3);
         /*mAddNS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -339,9 +345,27 @@ public class ListViewActivity extends AppCompatActivity {
             Button mOwnerbtn = (Button) mView.findViewById(R.id.owner_button);
             mOwnerbtn.setText(owner);}
 
-        public void setImageUrl(Context ctx, String image){
-            ImageButton post_image = (ImageButton) mView.findViewById(R.id.imgCard);
-            Picasso.with(ctx).load(image).into(post_image);
+        public void setImageUrl(final Context ctx, final String image){
+            final ImageButton post_image = (ImageButton) mView.findViewById(R.id.imgCard);
+            Picasso.with(ctx).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(post_image, new Callback() {
+                @Override
+                public void onSuccess() {
+                    Toast toast = Toast.makeText(ctx, "Offline Retrieved", Toast.LENGTH_SHORT);
+
+                    toast.show();
+
+                }
+                @Override
+                public void onError() {
+                    Picasso.with(ctx).load(image).into(post_image);
+                    Toast toast = Toast.makeText(ctx, "Displayed from database", Toast.LENGTH_SHORT);
+
+                    toast.show();
+                    //showToast("Displayed from database");
+
+                }
+            });
+
 
         }
     }
