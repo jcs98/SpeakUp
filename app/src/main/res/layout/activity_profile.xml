@@ -10,21 +10,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="475dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
         <ImageButton
-            android:id="@+id/mDP"
-            android:layout_width="176dp"
-            android:layout_height="173dp"
-            android:layout_gravity="center"
+            android:id="@+id/imageButton"
+            android:layout_width="155dp"
+            android:layout_height="147dp"
             android:layout_marginLeft="99dp"
             android:layout_marginRight="90dp"
+            android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@drawable/round_view"
-            android:cropToPadding="true"
             android:padding="@dimen/cardview_compat_inset_shadow"
-            android:scaleType="centerInside" />
+            android:background="@drawable/round_view"
+            android:scaleType="centerCrop"
+            />
 
         <TextView
             android:id="@+id/tvWelcome"
