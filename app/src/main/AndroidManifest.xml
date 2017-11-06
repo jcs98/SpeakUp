@@ -27,7 +27,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/app_logo"
+        android:icon="@drawable/app_logo_p"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
