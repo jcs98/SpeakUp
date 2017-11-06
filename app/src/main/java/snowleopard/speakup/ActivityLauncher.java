@@ -25,7 +25,7 @@ public class ActivityLauncher extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_launcher);
         mImg = (ImageView) findViewById(R.id.LauncherImage);
-        mImg.setImageResource(R.drawable.app_name);
+        mImg.setImageResource(R.drawable.app_name_p);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
