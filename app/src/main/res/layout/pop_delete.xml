@@ -18,7 +18,7 @@
         android:layout_marginTop="10dp"/>
 
     <Button
-        android:id="@+id/cancel_button"
+        android:id="@+id/cancel_button_delete_story"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="cancel"
@@ -33,7 +33,7 @@
         android:layout_marginLeft="70dp"/>
 
     <Button
-        android:id="@+id/del_final"
+        android:id="@+id/del_final_story"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorButtons"

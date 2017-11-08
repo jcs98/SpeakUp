@@ -15,16 +15,15 @@
         >
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/mProfile"
             android:layout_width="155dp"
             android:layout_height="147dp"
             android:layout_gravity="center"
-            android:textAlignment="center"
             android:layout_marginTop="10dp"
-            android:padding="@dimen/cardview_compat_inset_shadow"
             android:background="@drawable/round_view"
+            android:padding="@dimen/cardview_compat_inset_shadow"
             android:scaleType="centerCrop"
-            />
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/tvWelcome"

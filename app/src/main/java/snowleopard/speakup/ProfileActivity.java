@@ -31,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabase1;
     private Query mQuery;
+    private Button mDel;
 
     private FirebaseUser mUser;
     private RecyclerView mList;
@@ -92,16 +93,16 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseRecyclerAdapter<Cards_ListViewActivity , ListViewActivity.cardViewHolder> firebaserecycleradapter = new FirebaseRecyclerAdapter<Cards_ListViewActivity, ListViewActivity.cardViewHolder>(
-                Cards_ListViewActivity.class,
+        FirebaseRecyclerAdapter<Cards_ProfileActivity , ProfileActivity.cardViewHolder> firebaserecycleradapter = new FirebaseRecyclerAdapter<Cards_ProfileActivity, ProfileActivity.cardViewHolder>(
+                Cards_ProfileActivity.class,
                 R.layout.list_row_profile,
-                ListViewActivity.cardViewHolder.class,
+                ProfileActivity.cardViewHolder.class,
                 mQuery
                 ) {
 
 
             @Override
-            protected void populateViewHolder(final ListViewActivity.cardViewHolder viewHolder, final Cards_ListViewActivity model, int position) {
+            protected void populateViewHolder(final ProfileActivity.cardViewHolder viewHolder, final Cards_ProfileActivity model, int position) {
 
                 final String post_key = getRef(position).getKey();
 
@@ -125,6 +126,14 @@ public class ProfileActivity extends AppCompatActivity {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setImageUrl(getApplicationContext(), model.getImageURL());
                 viewHolder.setLikeBtn(post_key);
+                viewHolder.del_story.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent deleteActivity = new Intent(ProfileActivity.this, PopDelete.class);
+                        deleteActivity.putExtra("Key", post_key);
+                        startActivity(deleteActivity);
+                    }
+                });
                 viewHolder.mViewStory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
