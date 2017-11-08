@@ -28,13 +28,13 @@ public class pop extends Activity {
         double height = dm.heightPixels;
 
         getWindow().setLayout((int)(width*.8),(int)(height*.23));
-        yes = (Button) findViewById(R.id.button2);
-        yes.setOnClickListener(new View.OnClickListener() {
+        yes_report = (Button) findViewById(R.id.button2);
+        yes_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(pop.this , ViewStoryActivity.class));
             }
         });
     }
-    private Button yes;
+    private Button yes_report;
 }

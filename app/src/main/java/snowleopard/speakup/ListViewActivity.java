@@ -350,17 +350,17 @@ public class ListViewActivity extends AppCompatActivity {
             Picasso.with(ctx).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(post_image, new Callback() {
                 @Override
                 public void onSuccess() {
-                    Toast toast = Toast.makeText(ctx, "Offline Retrieved", Toast.LENGTH_SHORT);
+                   // Toast toast = Toast.makeText(ctx, "Offline Retrieved", Toast.LENGTH_SHORT);
 
-                    toast.show();
+                    //toast.show();
 
                 }
                 @Override
                 public void onError() {
                     Picasso.with(ctx).load(image).into(post_image);
-                    Toast toast = Toast.makeText(ctx, "Displayed from database", Toast.LENGTH_SHORT);
+                    //Toast toast = Toast.makeText(ctx, "Displayed from database", Toast.LENGTH_SHORT);
 
-                    toast.show();
+                    //toast.show();
                     //showToast("Displayed from database");
 
                 }

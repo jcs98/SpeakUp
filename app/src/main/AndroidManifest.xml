@@ -68,6 +68,7 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MapViewActivity" />
         <activity android:name=".MappingActivity" />
+        <activity android:name=".PopDelete"/>
         <activity
             android:name=".pop"
             android:theme="@style/AppTheme.pw" />
