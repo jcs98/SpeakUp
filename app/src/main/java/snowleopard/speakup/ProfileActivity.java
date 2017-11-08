@@ -94,7 +94,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onStart();
         FirebaseRecyclerAdapter<Cards_ListViewActivity , ListViewActivity.cardViewHolder> firebaserecycleradapter = new FirebaseRecyclerAdapter<Cards_ListViewActivity, ListViewActivity.cardViewHolder>(
                 Cards_ListViewActivity.class,
-                R.layout.list_row,
+                R.layout.list_row_profile,
                 ListViewActivity.cardViewHolder.class,
                 mQuery
                 ) {
@@ -148,6 +148,7 @@ public class ProfileActivity extends AppCompatActivity {
         ImageButton  mViewStory;
         DatabaseReference mDatabaseLike;
         FirebaseAuth mAuth;
+        ImageButton del_story;
 
 
         public cardViewHolder(View itemView) {
@@ -159,6 +160,7 @@ public class ProfileActivity extends AppCompatActivity {
             mViewStory = (ImageButton) mView.findViewById(R.id.imgCard);
             mAuth=FirebaseAuth.getInstance();
             mDatabaseLike.keepSynced(true);
+            del_story =  (ImageButton) mView.findViewById(R.id.del_bin_button);
         }
 
         public void setTitle(String title) {
@@ -197,7 +199,7 @@ public class ProfileActivity extends AppCompatActivity {
         public void setOwner(String owner){
 
             Button mOwnerbtn = (Button) mView.findViewById(R.id.owner_button);
-            mOwnerbtn.setText(owner);}
+            mOwnerbtn.setText("Owner:"+owner);}
 
         public void setImageUrl(Context ctx, String image){
             ImageButton post_image = (ImageButton) mView.findViewById(R.id.imgCard);
