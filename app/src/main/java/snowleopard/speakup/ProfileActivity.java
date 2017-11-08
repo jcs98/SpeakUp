@@ -160,6 +160,7 @@ public class ProfileActivity extends AppCompatActivity {
                         Intent deleteActivity = new Intent(ProfileActivity.this, PopDelete.class);
                         deleteActivity.putExtra("Key", post_key);
                         startActivity(deleteActivity);
+                        finish();
                     }
                 });
                 viewHolder.mViewStory.setOnClickListener(new View.OnClickListener() {

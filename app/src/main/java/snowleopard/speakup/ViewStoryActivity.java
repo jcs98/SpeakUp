@@ -27,8 +27,10 @@ public class ViewStoryActivity extends AppCompatActivity {
     private TextView mDescription;
     private DatabaseReference mDatabaseUsers;
     private DatabaseReference mDatabaseLike;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseReport;
 
+    private DatabaseReference mDatabase;
+    private Button mReport;
     private TextView mNumLikes;
     private ImageView mImage;
     private DatabaseReference mStory;
@@ -38,6 +40,8 @@ public class ViewStoryActivity extends AppCompatActivity {
     private Button mLoc;
 
     private boolean mProcessLike=false;
+    private boolean mProcessReport=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +54,18 @@ public class ViewStoryActivity extends AppCompatActivity {
         mNumLikes = (TextView) findViewById(R.id.mNLikes);
         mImage = (ImageView) findViewById(R.id.imageView);
         mLike = (ImageButton) findViewById(R.id.mLike);
+        mReport = (Button) findViewById(R.id.report);
         mLoc = (Button) findViewById(R.id.mLoc);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Story");
         mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("Likes");
+        mDatabaseReport=FirebaseDatabase.getInstance().getReference().child("Reports");
+
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabase.keepSynced(true);
         mDatabaseUsers.keepSynced(true);
         mDatabaseLike.keepSynced(true);
+        mDatabaseReport.keepSynced(true);
         mLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,6 +130,55 @@ public class ViewStoryActivity extends AppCompatActivity {
             }
 
         });
+        mReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mProcessReport = true;
+                mDatabaseReport.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (mProcessReport) {
+                            int number=0;
+                            if(dataSnapshot.child(key).hasChild("NumberOfReports"))
+                            {
+                                number = Integer.parseInt(dataSnapshot.child(key).child("NumberOfReports").getValue().toString());
+                            }
+
+                            if (dataSnapshot.child(key).hasChild(mAuth.getCurrentUser().getUid())) {
+                                mDatabaseReport.child(key).child(mAuth.getCurrentUser().getUid()).removeValue();
+                                mProcessReport = false;
+                                number--;
+
+                            } else {
+                                mDatabaseReport.child(key).child(mAuth.getCurrentUser().getUid()).setValue("Reported");
+                                number++;
+                                mProcessReport = false;
+                            }
+                            mDatabaseReport.child(key).child("NumberOfReports").setValue(number);
+                            if(number == 2){
+                                mDatabaseReport.child(key).removeValue();
+                                mDatabaseLike.child(key).removeValue();
+                                mDatabase.child(key).removeValue();
+                                Intent viewStories = new Intent(getApplicationContext(),ListViewActivity.class);
+                                startActivity(viewStories);
+                                finish();
+
+
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+        });
+
         mDatabaseLike.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -144,23 +201,26 @@ public class ViewStoryActivity extends AppCompatActivity {
         });
 
 
-        mStory.addValueEventListener(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
-                mTitle.setText(dataSnapshot.child("Title").getValue().toString());
-                mDescription.setText(dataSnapshot.child("Description").getValue().toString());
-                Picasso.with(getApplicationContext()).load(dataSnapshot.child("ImageUrl").getValue().toString()).networkPolicy(NetworkPolicy.OFFLINE).into(mImage, new Callback() {
-                    @Override
-                    public void onSuccess() {
+                if (dataSnapshot.hasChild(key)) {
+                    mTitle.setText(dataSnapshot.child(key).child("Title").getValue().toString());
+                    mDescription.setText(dataSnapshot.child(key).child("Description").getValue().toString());
+                    Picasso.with(getApplicationContext()).load(dataSnapshot.child(key).child("ImageUrl").getValue().toString()).networkPolicy(NetworkPolicy.OFFLINE).into(mImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
 
-                    }
+                        }
 
-                    @Override
-                    public void onError() {
-                        Picasso.with(getApplicationContext()).load(dataSnapshot.child("ImageUrl").getValue().toString()).into(mImage);
+                        @Override
+                        public void onError() {
+                            Picasso.with(getApplicationContext()).load(dataSnapshot.child(key).child("ImageUrl").getValue().toString()).into(mImage);
 
-                    }
-                });
+                        }
+
+                    });
+                }
             }
 
             @Override
@@ -169,12 +229,12 @@ public class ViewStoryActivity extends AppCompatActivity {
             }
         });
 
-        report =(Button) findViewById(R.id.button3);
-        report.setOnClickListener(new View.OnClickListener() {
+        mReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mainIntent=new Intent(ViewStoryActivity.this,pop.class);
                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                mainIntent.putExtra("Key",key);
                 startActivity(mainIntent);
             }
         });
